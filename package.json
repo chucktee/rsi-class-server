@@ -1,0 +1,23 @@
+{
+  "name": "rsi-class-server",
+  "version": "1.0.0",
+  "description": "Server for our class fictional company",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chucktee/rsi-class-server.git"
+  },
+  "author": "Chuck Toussieng",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chucktee/rsi-class-server/issues"
+  },
+  "homepage": "https://github.com/chucktee/rsi-class-server#readme",
+  "dependencies": {
+    "express": "^4.15.2",
+    "express-handlebars": "^3.0.0"
+  }
+}
