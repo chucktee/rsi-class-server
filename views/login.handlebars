@@ -1,0 +1,22 @@
+<!-- Our Styles -->
+<link rel="stylesheet" href="css/styles.css">
+
+<div class="container">
+    <div class="card card-container">
+        <img id="profile-img" class="profile-img-card" src="images/avatar_2x.png" />
+        <p id="profile-name" class="profile-name-card"></p>
+
+        <form class="form-signin" action="http://localhost:3000/login" method="post">
+
+            <span id="reauth-email" class="reauth-email"></span>
+
+            <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+            <input type="text" id="first_name" name="first_name" class="form-control" placeholder="First name" required>
+            <input type="text" id="last_name" name="last_name" class="form-control" placeholder="Last name" required>
+
+            <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Save It!</button>
+
+        </form><!-- /form -->
+
+    </div><!-- /card-container -->
+</div><!-- /container -->
