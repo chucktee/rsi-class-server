@@ -1,0 +1,247 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/local/bin/node', '/usr/local/bin/npm', 'install' ]
+2 info using npm@3.10.10
+3 info using node@v6.9.4
+4 silly loadCurrentTree Starting
+5 silly install loadCurrentTree
+6 silly install readLocalPackageData
+7 silly install normalizeTree
+8 silly loadCurrentTree Finishing
+9 silly loadIdealTree Starting
+10 silly install loadIdealTree
+11 silly cloneCurrentTree Starting
+12 silly install cloneCurrentTreeToIdealTree
+13 silly cloneCurrentTree Finishing
+14 silly loadShrinkwrap Starting
+15 silly install loadShrinkwrap
+16 silly loadShrinkwrap Finishing
+17 silly loadAllDepsIntoIdealTree Starting
+18 silly install loadAllDepsIntoIdealTree
+19 silly loadAllDepsIntoIdealTree Finishing
+20 silly loadIdealTree Finishing
+21 silly currentTree rsi-class-server@1.0.0
+21 silly currentTree ├── accepts@1.3.3
+21 silly currentTree ├── align-text@0.1.4
+21 silly currentTree ├── amdefine@1.0.1
+21 silly currentTree ├── array-flatten@1.1.1
+21 silly currentTree ├── asap@2.0.5
+21 silly currentTree ├── async@1.5.2
+21 silly currentTree ├── balanced-match@0.4.2
+21 silly currentTree ├── basic-auth@1.1.0
+21 silly currentTree ├── body-parser@1.17.1
+21 silly currentTree ├── brace-expansion@1.1.6
+21 silly currentTree ├── bytes@2.4.0
+21 silly currentTree ├── camelcase@1.2.1
+21 silly currentTree ├── center-align@0.1.3
+21 silly currentTree ├─┬ cliui@2.1.0
+21 silly currentTree │ └── wordwrap@0.0.2
+21 silly currentTree ├── concat-map@0.0.1
+21 silly currentTree ├── content-disposition@0.5.2
+21 silly currentTree ├── content-type@1.0.2
+21 silly currentTree ├── cookie-signature@1.0.6
+21 silly currentTree ├── cookie@0.3.1
+21 silly currentTree ├── debug@2.6.1
+21 silly currentTree ├── decamelize@1.2.0
+21 silly currentTree ├── define-properties@1.1.2
+21 silly currentTree ├── depd@1.1.0
+21 silly currentTree ├── destroy@1.0.4
+21 silly currentTree ├── ee-first@1.1.1
+21 silly currentTree ├── encodeurl@1.0.1
+21 silly currentTree ├── escape-html@1.0.3
+21 silly currentTree ├── etag@1.8.0
+21 silly currentTree ├── express-handlebars@3.0.0
+21 silly currentTree ├── express@4.15.2
+21 silly currentTree ├── finalhandler@1.0.0
+21 silly currentTree ├── foreach@2.0.5
+21 silly currentTree ├── forwarded@0.1.0
+21 silly currentTree ├── fresh@0.5.0
+21 silly currentTree ├── function-bind@1.1.0
+21 silly currentTree ├── glob@6.0.4
+21 silly currentTree ├── graceful-fs@4.1.11
+21 silly currentTree ├── handlebars@4.0.6
+21 silly currentTree ├── http-errors@1.6.1
+21 silly currentTree ├── iconv-lite@0.4.15
+21 silly currentTree ├── inflight@1.0.6
+21 silly currentTree ├── inherits@2.0.3
+21 silly currentTree ├── ipaddr.js@1.2.0
+21 silly currentTree ├── is-buffer@1.1.5
+21 silly currentTree ├── kind-of@3.1.0
+21 silly currentTree ├── lazy-cache@1.0.4
+21 silly currentTree ├── longest@1.0.1
+21 silly currentTree ├── media-typer@0.3.0
+21 silly currentTree ├── merge-descriptors@1.0.1
+21 silly currentTree ├── methods@1.1.2
+21 silly currentTree ├── mime-db@1.26.0
+21 silly currentTree ├── mime-types@2.1.14
+21 silly currentTree ├── mime@1.3.4
+21 silly currentTree ├── minimatch@3.0.3
+21 silly currentTree ├── minimist@0.0.10
+21 silly currentTree ├── morgan@1.8.1
+21 silly currentTree ├── ms@0.7.2
+21 silly currentTree ├── negotiator@0.6.1
+21 silly currentTree ├── object-keys@1.0.11
+21 silly currentTree ├── object.assign@4.0.4
+21 silly currentTree ├── on-finished@2.3.0
+21 silly currentTree ├── on-headers@1.0.1
+21 silly currentTree ├── once@1.4.0
+21 silly currentTree ├── optimist@0.6.1
+21 silly currentTree ├── parseurl@1.3.1
+21 silly currentTree ├── path-is-absolute@1.0.1
+21 silly currentTree ├── path-to-regexp@0.1.7
+21 silly currentTree ├── promise@7.1.1
+21 silly currentTree ├── proxy-addr@1.1.3
+21 silly currentTree ├── qs@6.4.0
+21 silly currentTree ├── range-parser@1.2.0
+21 silly currentTree ├── raw-body@2.2.0
+21 silly currentTree ├── repeat-string@1.6.1
+21 silly currentTree ├── right-align@0.1.3
+21 silly currentTree ├── send@0.15.1
+21 silly currentTree ├── serve-static@1.12.1
+21 silly currentTree ├── setprototypeof@1.0.3
+21 silly currentTree ├── source-map@0.4.4
+21 silly currentTree ├── statuses@1.3.1
+21 silly currentTree ├── type-is@1.6.14
+21 silly currentTree ├─┬ uglify-js@2.8.13
+21 silly currentTree │ └── source-map@0.5.6
+21 silly currentTree ├── uglify-to-browserify@1.0.2
+21 silly currentTree ├── unpipe@1.0.0
+21 silly currentTree ├── utils-merge@1.0.0
+21 silly currentTree ├── vary@1.1.0
+21 silly currentTree ├── window-size@0.1.0
+21 silly currentTree ├── wordwrap@0.0.3
+21 silly currentTree ├── wrappy@1.0.2
+21 silly currentTree └── yargs@3.10.0
+22 silly idealTree rsi-class-server@1.0.0
+22 silly idealTree ├── accepts@1.3.3
+22 silly idealTree ├── align-text@0.1.4
+22 silly idealTree ├── amdefine@1.0.1
+22 silly idealTree ├── array-flatten@1.1.1
+22 silly idealTree ├── asap@2.0.5
+22 silly idealTree ├── async@1.5.2
+22 silly idealTree ├── balanced-match@0.4.2
+22 silly idealTree ├── basic-auth@1.1.0
+22 silly idealTree ├── body-parser@1.17.1
+22 silly idealTree ├── brace-expansion@1.1.6
+22 silly idealTree ├── bytes@2.4.0
+22 silly idealTree ├── camelcase@1.2.1
+22 silly idealTree ├── center-align@0.1.3
+22 silly idealTree ├─┬ cliui@2.1.0
+22 silly idealTree │ └── wordwrap@0.0.2
+22 silly idealTree ├── concat-map@0.0.1
+22 silly idealTree ├── content-disposition@0.5.2
+22 silly idealTree ├── content-type@1.0.2
+22 silly idealTree ├── cookie-signature@1.0.6
+22 silly idealTree ├── cookie@0.3.1
+22 silly idealTree ├── debug@2.6.1
+22 silly idealTree ├── decamelize@1.2.0
+22 silly idealTree ├── define-properties@1.1.2
+22 silly idealTree ├── depd@1.1.0
+22 silly idealTree ├── destroy@1.0.4
+22 silly idealTree ├── ee-first@1.1.1
+22 silly idealTree ├── encodeurl@1.0.1
+22 silly idealTree ├── escape-html@1.0.3
+22 silly idealTree ├── etag@1.8.0
+22 silly idealTree ├── express-handlebars@3.0.0
+22 silly idealTree ├── express@4.15.2
+22 silly idealTree ├── finalhandler@1.0.0
+22 silly idealTree ├── foreach@2.0.5
+22 silly idealTree ├── forwarded@0.1.0
+22 silly idealTree ├── fresh@0.5.0
+22 silly idealTree ├── function-bind@1.1.0
+22 silly idealTree ├── glob@6.0.4
+22 silly idealTree ├── graceful-fs@4.1.11
+22 silly idealTree ├── handlebars@4.0.6
+22 silly idealTree ├── http-errors@1.6.1
+22 silly idealTree ├── iconv-lite@0.4.15
+22 silly idealTree ├── inflight@1.0.6
+22 silly idealTree ├── inherits@2.0.3
+22 silly idealTree ├── ipaddr.js@1.2.0
+22 silly idealTree ├── is-buffer@1.1.5
+22 silly idealTree ├── kind-of@3.1.0
+22 silly idealTree ├── lazy-cache@1.0.4
+22 silly idealTree ├── longest@1.0.1
+22 silly idealTree ├── media-typer@0.3.0
+22 silly idealTree ├── merge-descriptors@1.0.1
+22 silly idealTree ├── methods@1.1.2
+22 silly idealTree ├── mime-db@1.26.0
+22 silly idealTree ├── mime-types@2.1.14
+22 silly idealTree ├── mime@1.3.4
+22 silly idealTree ├── minimatch@3.0.3
+22 silly idealTree ├── minimist@0.0.10
+22 silly idealTree ├── morgan@1.8.1
+22 silly idealTree ├── ms@0.7.2
+22 silly idealTree ├── negotiator@0.6.1
+22 silly idealTree ├── object-keys@1.0.11
+22 silly idealTree ├── object.assign@4.0.4
+22 silly idealTree ├── on-finished@2.3.0
+22 silly idealTree ├── on-headers@1.0.1
+22 silly idealTree ├── once@1.4.0
+22 silly idealTree ├── optimist@0.6.1
+22 silly idealTree ├── parseurl@1.3.1
+22 silly idealTree ├── path-is-absolute@1.0.1
+22 silly idealTree ├── path-to-regexp@0.1.7
+22 silly idealTree ├── promise@7.1.1
+22 silly idealTree ├── proxy-addr@1.1.3
+22 silly idealTree ├── qs@6.4.0
+22 silly idealTree ├── range-parser@1.2.0
+22 silly idealTree ├── raw-body@2.2.0
+22 silly idealTree ├── repeat-string@1.6.1
+22 silly idealTree ├── right-align@0.1.3
+22 silly idealTree ├── send@0.15.1
+22 silly idealTree ├── serve-static@1.12.1
+22 silly idealTree ├── setprototypeof@1.0.3
+22 silly idealTree ├── source-map@0.4.4
+22 silly idealTree ├── statuses@1.3.1
+22 silly idealTree ├── type-is@1.6.14
+22 silly idealTree ├─┬ uglify-js@2.8.13
+22 silly idealTree │ └── source-map@0.5.6
+22 silly idealTree ├── uglify-to-browserify@1.0.2
+22 silly idealTree ├── unpipe@1.0.0
+22 silly idealTree ├── utils-merge@1.0.0
+22 silly idealTree ├── vary@1.1.0
+22 silly idealTree ├── window-size@0.1.0
+22 silly idealTree ├── wordwrap@0.0.3
+22 silly idealTree ├── wrappy@1.0.2
+22 silly idealTree └── yargs@3.10.0
+23 silly generateActionsToTake Starting
+24 silly install generateActionsToTake
+25 silly generateActionsToTake Finishing
+26 silly diffTrees action count 0
+27 silly decomposeActions action count 0
+28 silly runTopLevelLifecycles Starting
+29 silly install runPreinstallTopLevelLifecycles
+30 silly preinstall rsi-class-server@1.0.0 /Users/chuckt/Documents/Class/rsi-class-server/rsi-class-server-ed47e675
+31 info lifecycle rsi-class-server@1.0.0~preinstall: rsi-class-server@1.0.0
+32 silly lifecycle rsi-class-server@1.0.0~preinstall: no script for preinstall, continuing
+33 silly executeActions Starting
+34 silly install executeActions
+35 silly doSerial global-install 0
+36 silly doParallel fetch 0
+37 verbose correctMkdir /Users/chuckt/.npm/_locks correctMkdir not in flight; initializing
+38 verbose lock using /Users/chuckt/.npm/_locks/staging-a3731cf23d24b6b5.lock for /Users/chuckt/Documents/Class/rsi-class-server/node_modules/.staging
+39 verbose unlock done using /Users/chuckt/.npm/_locks/staging-a3731cf23d24b6b5.lock for /Users/chuckt/Documents/Class/rsi-class-server/node_modules/.staging
+40 silly rollbackFailedOptional Starting
+41 silly rollbackFailedOptional Finishing
+42 silly runTopLevelLifecycles Finishing
+43 silly install printInstalled
+44 verbose stack Error: EACCES: permission denied, mkdir '/Users/chuckt/Documents/Class/rsi-class-server/node_modules/.staging'
+44 verbose stack     at Error (native)
+45 verbose cwd /Users/chuckt/Documents/Class/rsi-class-server
+46 error Darwin 16.4.0
+47 error argv "/usr/local/bin/node" "/usr/local/bin/npm" "install"
+48 error node v6.9.4
+49 error npm  v3.10.10
+50 error path /Users/chuckt/Documents/Class/rsi-class-server/node_modules/.staging
+51 error code EACCES
+52 error errno -13
+53 error syscall mkdir
+54 error Error: EACCES: permission denied, mkdir '/Users/chuckt/Documents/Class/rsi-class-server/node_modules/.staging'
+54 error     at Error (native)
+54 error  { Error: EACCES: permission denied, mkdir '/Users/chuckt/Documents/Class/rsi-class-server/node_modules/.staging'
+54 error     at Error (native)
+54 error   errno: -13,
+54 error   code: 'EACCES',
+54 error   syscall: 'mkdir',
+54 error   path: '/Users/chuckt/Documents/Class/rsi-class-server/node_modules/.staging' }
+55 error Please try running this command again as root/Administrator.
+56 verbose exit [ -13, true ]
