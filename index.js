@@ -33,7 +33,7 @@ app.set('view engine', 'handlebars');
 // Postgres
 // =============================================================================
 var config = {
-  user: 'apiuser', 				//env var: PGUSER
+  user: 'postgres', 			//env var: PGUSER
   database: 'postgres', 		//env var: PGDATABASE
   password: 'postgres', 		//env var: PGPASSWORD
   host: 'localhost', 			// Server hosting the postgres database
