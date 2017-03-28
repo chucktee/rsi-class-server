@@ -34,9 +34,14 @@ app.set('view engine', 'handlebars');
 //
 
 // Default page
-app.get('/', function(req,res){
+app.get('/construction', function(req,res){
 	// Send the construction page
 	res.render('construction');
+});
+
+app.get('/', function(req,res){
+	// Send the construction page
+	res.render('home');
 });
 
 // Stub of login page
@@ -45,7 +50,7 @@ app.get("/login", function (req, res) {
 	res.render('login');
 });
 app.post("/login", function (req, res) {
-    console.log(req.body);
+    console.log(req.body.first_name);
 		// Close connection
 		res.status(200).json({result: 'success', data:{}});
 });
