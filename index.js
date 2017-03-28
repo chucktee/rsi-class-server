@@ -84,19 +84,19 @@ app.post("/login", function (req, res) {
 var products = require('./routes/products');
 
 // Create
-app.post('/api/product', product.createProduct);
+app.post('/api/product', products.createProduct);
 
 // Read all
-app.get('/api/products', product.readProducts);
+app.get('/api/products', products.readProducts);
 
 // Read one
-app.get('/api/product/:id', product.readProduct);
+app.get('/api/product/:id', products.readProduct);
 
 // Update
-app.put('/api/product', user.updateProduct);
+app.put('/api/product', products.updateProduct);
 
 // Delete
-app.delete('/api/product', user.deleteProduct);
+app.delete('/api/product', products.deleteProduct);
 
 //---------------------------------------------------------------------------------------------
 
