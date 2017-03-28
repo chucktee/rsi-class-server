@@ -89,6 +89,8 @@ exports.readProducts = function(req, res) {
 // Get specific Product
 exports.readProduct = function(req, res) {
 	
+	console.log("In Get specific Product");
+
 	// get a pg client from the connection pool
 	pool.connect(function(err, client, done) {
 		

@@ -34,8 +34,8 @@ app.set('view engine', 'handlebars');
 // =============================================================================
 var config = {
   user: 'postgres', 			//env var: PGUSER
-  database: 'postgres', 		//env var: PGDATABASE
-  password: 'prosym~postgres', 	//env var: PGPASSWORD
+  database: 'apiuser', 			//env var: PGDATABASE
+  password: 'postgres', 		//env var: PGPASSWORD
   host: 'localhost', 			// Server hosting the postgres database
   port: 5432, 					//env var: PGPORT
   max: 10, 						// max number of clients in the pool
@@ -74,8 +74,8 @@ app.get("/login", function (req, res) {
 });
 app.post("/login", function (req, res) {
     console.log(req.body.first_name);
-		// Close connection
-		res.status(200).json({result: 'success', data:{}});
+	// Close connection
+	res.status(200).json({result: 'success', data:{}});
 });
 
 //---------------------------------------------------------------------------------------------
