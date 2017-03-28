@@ -18,8 +18,13 @@
   "homepage": "https://github.com/chucktee/rsi-class-server#readme",
   "dependencies": {
     "body-parser": "^1.17.1",
+    "dateutil": "^0.1.0",
     "express": "^4.15.2",
     "express-handlebars": "^3.0.0",
-    "morgan": "^1.8.1"
+    "morgan": "^1.8.1",
+    "node-uuid": "^1.4.8",
+    "pg": "^6.1.5",
+    "pg-pool": "^1.6.0",
+    "pg-query-stream": "^1.0.0"
   }
 }
