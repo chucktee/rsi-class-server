@@ -33,8 +33,8 @@ app.set('view engine', 'handlebars');
 // Postgres
 // =============================================================================
 var config = {
-  user: 'postgres', 			//env var: PGUSER
-  database: 'apiuser', 			//env var: PGDATABASE
+  user: 'apiuser', 				//env var: PGUSER
+  database: 'postgres', 		//env var: PGDATABASE
   password: 'postgres', 		//env var: PGPASSWORD
   host: 'localhost', 			// Server hosting the postgres database
   port: 5432, 					//env var: PGPORT
