@@ -5,8 +5,10 @@ var uuid = require('node-uuid');
 
 // Dates
 var dateutil = require('dateutil');
+
+// Stream
 var QueryStream = require('pg-query-stream');
-var JSONStream = require('JSONStream');
+
 
 //-------------------------------------------------------------------------------------------
 // Create a Product
