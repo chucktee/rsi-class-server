@@ -63,23 +63,17 @@ exports.readProducts = function(req, res) {
     	
     	// handle an error from the connect
 		if(handleError(err)) return;
-			
-			// Setup the query		
-			var query = new QueryStream('SELECT * FROM products LIMIT 100');
-			
-			// handle an error from the query	
+		var queryText = 'SELECT * FROM products;';
+		client.query(queryText, [], function(err, result) {
 			if(handleError(err)) return;
-			
-			var wrappedStream = require('stream-wrap')({
-				result: 'success',
-				data: {
-					products:'{{__target__}}'
-        		}
-			})
-			var stream = client.query(query);
-			stream.on('end', done);
-			stream.pipe(JSONStream.stringify()).pipe(wrappedStream).pipe(res);
-
+			done();
+			if(result.rowCount > 0) {
+				var products = result.rows;
+				res.status(200).json({result: 'success', data:{ products : products }});
+			} else {
+				res.status(200).json({result: 'success', data:{}});
+			}
+		});
 	});
 };
 
@@ -89,8 +83,6 @@ exports.readProducts = function(req, res) {
 // Get specific Product
 exports.readProduct = function(req, res) {
 	
-	console.log("In Get specific Product");
-
 	// get a pg client from the connection pool
 	pool.connect(function(err, client, done) {
 		
@@ -105,20 +97,18 @@ exports.readProduct = function(req, res) {
     	// handle an error from the connect
 		if(handleError(err)) return;
 
-			var queryText = 'SELECT * FROM products WHERE id = $1;';
-			client.query(queryText, [req.params.id], function(err, result) {
-				if(handleError(err)) return;
-				done();
-				if(result.rowCount > 0) {
-					for(var x=0;x<result.rowCount;x++) {
-						res.send(result.rows[x].product_name);
-					}
-					res.status(200).json({result: 'success', data:{ result }});
-				} else {
-					done();
-					res.status(200).json({result: 'success', data:{}});
-				}
-	  		}); 
+		var queryText = 'SELECT * FROM products WHERE id = $1;';
+		client.query(queryText, [req.params.id], function(err, result) {
+			if(handleError(err)) return;
+			done();
+			if(result.rowCount > 0) {
+				var products = result.rows;
+				res.status(200).json({result: 'success', data:{ products : products }});
+			} else {
+				res.status(200).json({result: 'success', data:{}});
+			}
+		}); 
+
 	});
 };
 
