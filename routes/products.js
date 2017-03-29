@@ -26,10 +26,10 @@ exports.createProduct = function(req, res) {
 		if(handleError(err)) return;
 		
 		// Validate then insert
-		if(req.params.first_name && req.params.last_name) {
+		if(req.params.product_name) {
 			
-			var queryText = 'INSERT INTO customers (id, date_created, date_updated, first_name, last_name) VALUES ($1, $2, $3, $4, $5) RETURNING id'
-			client.query(queryText, [uuid.v4(), dateutil.date(), dateutil.date(), req.params.first_name, req.params.last_name], function(err, result) {
+			var queryText = 'INSERT INTO products (id, product_name) VALUES ($1, $2) RETURNING id'
+			client.query(queryText, [uuid.v4(), req.params.product_name], function(err, result) {
 				done();
 				// handle an error from the query
 				if(handleError(err)) return;
@@ -38,7 +38,7 @@ exports.createProduct = function(req, res) {
 	  	
 		} else {
 			done();
-	    	res.status(400).json({ error: 'first_name and last_name are required' });
+	    	res.status(400).json({ error: 'product_name is required' });
 		}
 		
 	});
@@ -111,7 +111,7 @@ exports.readProduct = function(req, res) {
 				done();
 				if(result.rowCount > 0) {
 					for(var x=0;x<result.rowCount;x++) {
-						res.send(result.rows[x].first_name + ' ' + result.rows[x].last_name);
+						res.send(result.rows[x].product_name);
 					}
 					res.status(200).json({result: 'success', data:{ result }});
 				} else {
