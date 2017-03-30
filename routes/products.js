@@ -26,15 +26,19 @@ exports.createProduct = function(req, res) {
 		if(handleError(err)) return;
 		
 		// Validate then insert
-		if(req.params.product_name) {
+		if(req.body.product_name) {
 			
 			var queryText = 'INSERT INTO products (id, product_name) VALUES ($1, $2) RETURNING id'
-			client.query(queryText, [uuid.v4(), req.params.product_name], function(err, result) {
+			client.query(queryText, [uuid.v4(), req.body.product_name], function(err, result) {
 				done();
 				// handle an error from the query
 				if(handleError(err)) return;
-				res.status(200).json({result: 'success', data:{ id : result.rows[0].id }});	
-	  		});
+				// Either
+				//res.status(200).json({result: 'success', data:{ id : result.rows[0].id }});	
+				// Or sample redirect
+				res.writeHead(302, {'Location': 'http://localhost:3000/addproduct'});
+				res.end();
+			});
 	  	
 		} else {
 			done();
@@ -57,6 +61,7 @@ exports.readProducts = function(req, res) {
 			// no error occurred, continue with the request
 			if(!err) return false;
 			done();
+			console.log(err);
 			res.status(500).json({ error: err });
 			return true;
     	};
