@@ -41,7 +41,7 @@ var config = {
   database: 'richwood-scentific', 	// env var: PGDATABASE
   password: 'postgres', 			// env var: PGPASSWORD
   host: 'localhost', 				// Server hosting the postgres database
-  port: 5433, 						// env var: PGPORT ** CHECK YOUR PORT
+  port: 5432, 						// env var: PGPORT ** CHECK YOUR PORT
   max: 10, 							// max number of clients in the pool
   idleTimeoutMillis: 30000	 		// how long a client is allowed to remain idle before being closed
 };
@@ -120,6 +120,9 @@ app.post('/api/product', products.createProduct);
 
 // Read all
 app.get('/api/products', products.readProducts);
+
+// Read all best sellers
+app.get('/api/bestsellers', products.readBestSellers);
 
 // Read one
 app.get('/api/product/:id', products.readProduct);

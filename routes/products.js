@@ -35,6 +35,7 @@ exports.createProduct = function(req, res) {
 				if(handleError(err)) return;
 				// Either
 				//res.status(200).json({result: 'success', data:{ id : result.rows[0].id }});	
+				
 				// Or sample redirect
 				res.writeHead(302, {'Location': 'http://localhost:3000/addproduct'});
 				res.end();
@@ -69,6 +70,38 @@ exports.readProducts = function(req, res) {
     	// handle an error from the connect
 		if(handleError(err)) return;
 		var queryText = 'SELECT * FROM products;';
+		client.query(queryText, [], function(err, result) {
+			if(handleError(err)) return;
+			done();
+			if(result.rowCount > 0) {
+				var products = result.rows;
+				res.status(200).json({result: 'success', data:{ products : products }});
+			} else {
+				res.status(200).json({result: 'success', data:{}});
+			}
+		});
+	});
+};
+
+//-------------------------------------------------------------------------------------------
+// Get all Products as a Stream
+exports.readBestSellers = function(req, res) {
+	
+	// get a pg client from the connection pool
+	pool.connect(function(err, client, done) {
+		
+    	var handleError = function(err) {
+			// no error occurred, continue with the request
+			if(!err) return false;
+			done();
+			console.log(err);
+			res.status(500).json({ error: err });
+			return true;
+    	};
+    	
+    	// handle an error from the connect
+		if(handleError(err)) return;
+		var queryText = 'SELECT product_name, unit_price FROM products WHERE best_seller = true;';
 		client.query(queryText, [], function(err, result) {
 			if(handleError(err)) return;
 			done();
