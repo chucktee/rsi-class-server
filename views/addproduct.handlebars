@@ -1,7 +1,119 @@
-<h3>Add a Product</h3>
 
-<form action="http://localhost:3000/api/product" method="POST">
-Product name: <input type="text" name="product_name"><br>
-<button type="submit" name="submitButton" value="save">save</button>
+  <div class="container">
+    <div class="row">
 
-</form>
+      <div class="col-md-3 sidebar">
+        <nav class="sidebar-nav">
+
+          <div class="sidebar-header">
+            <button class="nav-toggler nav-toggler-md sidebar-toggler" type="button" data-toggle="collapse" data-target="#nav-toggleable-md">
+              <span class="sr-only">Toggle nav</span>
+            </button>
+            <a class="sidebar-brand img-responsive" href="admin">
+              <span class="icon icon-leaf sidebar-brand-icon"></span>
+            </a>
+          </div>
+
+          <div class="collapse nav-toggleable-md" id="nav-toggleable-md">
+           
+           <!-- Search for products -->
+           <form class="sidebar-form">
+              <input class="form-control" type="text" placeholder="Search...">
+              <button type="submit" class="btn-link">
+                <span class="icon icon-magnifying-glass"></span>
+              </button>
+            </form>
+
+            <!-- Side Nav Bar Top -->
+            <ul class="nav nav-pills nav-stacked flex-column">
+              <li class="nav-header">Main Data Tables</li>
+              <li class="nav-item">
+                <a class="nav-link" href="admin">Overview</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" href="addproduct">Add Products</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link "href="admin">Add Customers</a>
+              </li>
+            </ul>
+            
+            <hr class="visible-xs mt-3">
+
+            <!-- Side Nav Bar Bottom -->
+            <ul class="nav nav-pills nav-stacked flex-column">
+              <li class="nav-header">Related Tables</li>
+
+              <li class="nav-item">
+                <a class="nav-link " href="admin">Product Types</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link "href="admin">Scent Types</a>
+              </li>
+            </ul>
+
+          </div>
+
+        </nav>
+      </div>
+
+
+        <!-- Top page Bar -->
+        <div class="col-md-9 content">
+            <div class="dashhead">
+                <div class="dashhead-titles">
+                    <h6 class="dashhead-subtitle">Richwood Scent-ific</h6>
+                    <h2 class="dashhead-title">Add a Product</h2>
+                </div>
+            </div>
+
+            <!-- Body Box -->
+            <hr class="mt-5">
+                
+            <form action="http://localhost:3000/api/product" method="POST">
+                <div class="form-group">
+                    <label for="inputProductName">Product Name</label>
+                    <input type="text" class="form-control" id="inputProductName" name="product_name" placeholder="Enter product name">
+                </div>
+                
+                <div class="form-group row">
+                    <div class="col-3">
+                        <label for="inputUnitPrice">Unit Price</label>
+                        <!-- Note a numeric validator field will only want whole numbers unless we set the step property to "any" -->
+                        <input class="form-control" type="number" step="any" id="inputUnitPrice" name="unit_price" placeholder="Enter unit price">
+                    </div>
+                    <div class="col-3">
+                        <label for="inputCost">Unit Cost</label>
+                        <!-- Note a numeric validator field will only want whole numbers unless we set the step property to "any" -->
+                        <input class="form-control" type="number" step="any" id="inputCost" name="cost" placeholder="Enter unit cost">
+                    </div>
+                </div>
+
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <input type="checkbox" class="form-check-input" name="in_store">
+                        In-Store Pickup
+                    </label>
+                </div>
+                <button type="submit" name="submitButton" value="save" class="btn btn-primary">save</button>
+            </form>
+
+            <hr class="mt-5">
+            <!-- Body Box -->
+
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/tether.min.js"></script>
+    <script src="assets/js/chart.js"></script>
+    <script src="assets/js/tablesorter.min.js"></script>
+    <script src="assets/js/toolkit.js"></script>
+    <script src="assets/js/application.js"></script>
+    <script>
+      // execute/clear BS loaders for docs
+      $(function(){while(window.BS&&window.BS.loader&&window.BS.loader.length){(window.BS.loader.pop())()}})
+    </script>

@@ -28,8 +28,8 @@ exports.createProduct = function(req, res) {
 		// Validate then insert
 		if(req.body.product_name) {
 			
-			var queryText = 'INSERT INTO products (id, product_name) VALUES ($1, $2) RETURNING id'
-			client.query(queryText, [uuid.v4(), req.body.product_name], function(err, result) {
+			var queryText = 'INSERT INTO products (id, product_name, unit_price, cost, in_store) VALUES ($1, $2, $3, $4, $5) RETURNING id'
+			client.query(queryText, [uuid.v4(), req.body.product_name, req.body.unit_price, req.body.cost, req.body.in_store], function(err, result) {
 				done();
 				// handle an error from the query
 				if(handleError(err)) return;

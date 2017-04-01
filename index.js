@@ -103,18 +103,20 @@ app.post("/login", function (req, res) {
 	res.status(200).json({result: 'success', data:{}});
 });
 
-// Page to add products to the Database
-app.get("/addproduct", function (req, res) {
-	// Send the Add Product page
-    res.render('addproduct');
-});
-
-// PDashboard for Admin
+//-----------------------------------------
+// Dashboard and Admin pages
+//
 app.get("/admin", function (req, res) {
 	// Send the Admin page
 	// Note we are also changing from the main layout
 	// to the Admin one; not just the body
     res.render('adminbody', {layout: 'adminmain'});
+});
+
+// Page to add products to the Database
+app.get("/addproduct", function (req, res) {
+	// Send the Add Product page
+    res.render('addproduct', {layout: 'adminmain'});
 });
 
 
