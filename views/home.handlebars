@@ -1,7 +1,16 @@
 <h3>Richwood Scentific</h3>
 
-<script type="text/javascript">
+<!-- Example using jQuery and a loop -->
 
+<table width="200px" border="1" id="BestSellerTable">
+    <tr>
+        <td>Product</td>
+        <td>Price</td>
+    </tr>
+    <!-- append happens here -->
+</table>
+
+<script type="text/javascript">
 $.ajax({
     url: "http://localhost:3000/api/bestsellers",
     dataType: "json",
@@ -9,10 +18,11 @@ $.ajax({
     data: {},
     success: function (result) {
         console.log(result);
-
-        // Insert a table with products here
-
+        // We iterate through the array of records we get back from the database API call
+        // If you drill down in the console, you will find the array at result.data.products
+        $.each(result.data.products, function (index, product) {
+            $('#BestSellerTable').append('<tr><td>' + product.product_name + '</td><td>' + product.unit_price + '</td></tr>');
+        })
     }
 });
-
 </script>

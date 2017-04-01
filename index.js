@@ -85,6 +85,10 @@ app.get('/', function(req,res) {
 	// Send the construction page
 	res.render('home');
 });
+app.get('/pretty', function(req,res) {
+	// Send the construction page
+	res.render('homepretty');
+});
 
 // Stub of login page
 app.get("/login", function (req, res) {
@@ -123,6 +127,8 @@ app.get('/api/products', products.readProducts);
 
 // Read all best sellers
 app.get('/api/bestsellers', products.readBestSellers);
+// Read all best sellers minified
+app.get('/api/bestsellersmin', products.readBestSellersMin);
 
 // Read one
 app.get('/api/product/:id', products.readProduct);

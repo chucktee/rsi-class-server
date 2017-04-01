@@ -84,7 +84,7 @@ exports.readProducts = function(req, res) {
 };
 
 //-------------------------------------------------------------------------------------------
-// Get all Products as a Stream
+// Get all Best Selling Products
 exports.readBestSellers = function(req, res) {
 	
 	// get a pg client from the connection pool
@@ -110,6 +110,38 @@ exports.readBestSellers = function(req, res) {
 				res.status(200).json({result: 'success', data:{ products : products }});
 			} else {
 				res.status(200).json({result: 'success', data:{}});
+			}
+		});
+	});
+};
+
+//-------------------------------------------------------------------------------------------
+// Get all Best Selling Products stripped for a table
+exports.readBestSellersMin = function(req, res) {
+	
+	// get a pg client from the connection pool
+	pool.connect(function(err, client, done) {
+		
+    	var handleError = function(err) {
+			// no error occurred, continue with the request
+			if(!err) return false;
+			done();
+			console.log(err);
+			res.status(500).json({ error: err });
+			return true;
+    	};
+    	
+    	// handle an error from the connect
+		if(handleError(err)) return;
+		var queryText = 'SELECT product_name, unit_price FROM products WHERE best_seller = true;';
+		client.query(queryText, [], function(err, result) {
+			if(handleError(err)) return;
+			done();
+			if(result.rowCount > 0) {
+				var data = result.rows;
+				res.status(200).json({data});
+			} else {
+				res.status(200).json({data});
 			}
 		});
 	});
