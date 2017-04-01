@@ -109,6 +109,14 @@ app.get("/addproduct", function (req, res) {
     res.render('addproduct');
 });
 
+// PDashboard for Admin
+app.get("/admin", function (req, res) {
+	// Send the Admin page
+	// Note we are also changing from the main layout
+	// to the Admin one; not just the body
+    res.render('adminbody', {layout: 'adminmain'});
+});
+
 
 //-----------------------------------------
 // API routes
