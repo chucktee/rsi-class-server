@@ -8,11 +8,15 @@ We will be adding an API to our backend database, Postgres.
  - on OSX use [homebrew](http://brew.sh) `brew install node`
  - on Windows use [chocolatey](https://chocolatey.org/) `choco install nodejs`
 
-2. Download or Clone the repository into a project folder.
+2. Install Postgres from https://www.postgresql.org
 
-3. From a command line / terminal, cd into the project folder.
+3. Install pgAdmin from https://www.pgadmin.org
 
-3. Install dependencies
+4. Download or Clone the repository into a project folder.
+
+5. From a command line / terminal, cd into the project folder.
+
+6. Install dependencies
 
     ```bash
     npm install
