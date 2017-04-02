@@ -1,5 +1,6 @@
 # rsi-class-server
-Server for our class fictional company
+Server for our class fictional company.
+We will be adding an API to our backend database, Postgres.
 
 ## Prerequisites
 
