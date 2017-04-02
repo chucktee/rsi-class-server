@@ -1,0 +1,140 @@
+ <div class="container">
+    <div class="row">
+
+      <div class="col-md-3 sidebar">
+        <nav class="sidebar-nav">
+
+          <div class="sidebar-header">
+            <button class="nav-toggler nav-toggler-md sidebar-toggler" type="button" data-toggle="collapse" data-target="#nav-toggleable-md">
+              <span class="sr-only">Toggle nav</span>
+            </button>
+            <a class="sidebar-brand img-responsive" href="/admin">
+              <span class="icon icon-leaf sidebar-brand-icon"></span>
+            </a>
+          </div>
+
+          <div class="collapse nav-toggleable-md" id="nav-toggleable-md">
+           
+           <!-- Search for products -->
+           <form class="sidebar-form">
+              <input class="form-control" type="text" placeholder="Search...">
+              <button type="submit" class="btn-link">
+                <span class="icon icon-magnifying-glass"></span>
+              </button>
+            </form>
+
+            <!-- Side Nav Bar Top -->
+            <ul class="nav nav-pills nav-stacked flex-column">
+              <li class="nav-header">Main Data Tables</li>
+              <li class="nav-item">
+                <a class="nav-link" href="/admin">Overview</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/addproduct">Add Products</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link "href="/admin">Add Customers</a>
+              </li>
+            </ul>
+            
+            <hr class="visible-xs mt-3">
+
+            <!-- Side Nav Bar Bottom -->
+            <ul class="nav nav-pills nav-stacked flex-column">
+              <li class="nav-header">Related Tables</li>
+
+              <li class="nav-item">
+                <a class="nav-link active" href="/addproducttype">Product Types</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link "href="/admin">Scent Types</a>
+              </li>
+            </ul>
+
+          </div>
+
+        </nav>
+      </div>
+
+
+        <!-- Top page Bar -->
+        <div class="col-md-9 content">
+            <div class="dashhead">
+                <div class="dashhead-titles">
+                    <h6 class="dashhead-subtitle">Richwood Scent-ific</h6>
+                    <h2 class="dashhead-title">Add a Product Type</h2>
+                </div>
+            </div>
+
+            <!-- Body Box -->
+            <hr class="mt-5">
+                
+            <form action="http://localhost:3000/api/product_type" method="POST">
+                <div class="form-group">
+                    <label for="inputProductType">Product Type</label>
+                    <input type="text" class="form-control" id="inputProductType" name="label" placeholder="Enter a label">
+                </div>
+
+                <div class="form-group">
+                    <label for="inputDescription">Product Type Description</label>
+                    <textarea class="form-control" id="inputDescription" name="description" rows="3" placeholder="Enter a description"></textarea>
+                </div>
+                
+                <button type="submit" name="submitButton" value="save" class="btn btn-primary">save</button>
+            </form>
+
+            <hr class="mt-5">
+            <!-- Body Box -->
+
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
+
+  <script src="../assets/js/jquery.min.js"></script>
+  <script src="../assets/js/sweetalert.min.js"></script> 
+
+  <script type="text/javascript">
+
+    $( document ).ready(function() {
+
+        // process the form
+        $('form').submit(function(event) {
+
+            // stop the form from submitting the normal way and refreshing the page
+            event.preventDefault();
+
+            // get the form data
+            // there are many ways to get this data using jQuery (you can use the class or id also)
+            var formData = {
+                'label'         : $('input[name=label]').val(),
+                'description'   : $('textarea[name=description]').val()
+            };
+
+            // process the form
+            $.ajax({
+                type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
+                url         : 'http://localhost:3000/api/product_type', // the url where we want to POST
+                data        : formData, // our data object
+                dataType    : 'json', // what type of data do we expect back from the server
+                encode      : true
+            })
+                // using the done promise callback
+                .done(function(data) {
+                    // Success
+                    swal("Success!", data.data.label + " was added.", "success");
+                })
+                .fail(function(data){
+                    // In a fail, we need to look inside the responseJSON object for our
+                    // APIs error message
+                    swal("Oops...", data.responseJSON.data.error, "error");
+                });
+                
+        });
+
+    });
+
+  </script>
+

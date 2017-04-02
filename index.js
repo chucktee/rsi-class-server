@@ -110,7 +110,7 @@ app.get("/admin", function (req, res) {
 	// Send the Admin page
 	// Note we are also changing from the main layout
 	// to the Admin one; not just the body
-    res.render('adminbody', {layout: 'adminmain'});
+    res.render('adminbody', {layout: 'adminmain', inventory_cost : "$0.00"});
 });
 
 // Page to add products to the Database
@@ -118,6 +118,20 @@ app.get("/addproduct", function (req, res) {
 	// Send the Add Product page
     res.render('addproduct', {layout: 'adminmain'});
 });
+
+// Page to update products in the Database
+app.get("/updateproduct/:id", function (req, res) {
+	// Send the Update Product page
+    res.render('updateproduct', {layout: 'adminmain'});
+});
+
+
+// Page to add product types to the Database
+app.get("/addproducttype", function (req, res) {
+	// Send the Add Product page
+    res.render('addproducttype', {layout: 'adminmain'});
+});
+
 
 
 //-----------------------------------------
@@ -148,6 +162,28 @@ app.put('/api/product', products.updateProduct);
 
 // Delete
 app.delete('/api/product', products.deleteProduct);
+
+// Get the total cost of on-hand inventory
+app.get('/api/product_cost', products.totalCostofOnHand);
+
+//-----------------------------------------
+
+//-----------------------------------------
+// Product Types
+
+var product_types = require('./routes/product_types');
+
+// Create
+app.post('/api/product_type', product_types.createProductType);
+
+// Read all
+app.get('/api/product_types', product_types.readProductTypes);
+
+// Update
+app.put('/api/product_type', product_types.updateProductType);
+
+// Delete
+app.delete('/api/product_type', product_types.deleteProductType);
 
 //-----------------------------------------
 

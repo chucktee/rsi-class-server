@@ -43,7 +43,7 @@
               <li class="nav-header">Related Tables</li>
 
               <li class="nav-item">
-                <a class="nav-link " href="admin">Product Types</a>
+                <a class="nav-link " href="addproducttype">Product Types</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link "href="admin">Scent Types</a>
@@ -120,6 +120,7 @@
   </div>
 </div>
 
+<!-- Stat cards -->
 <div class="hr-divider mt-5 mb-3">
   <h3 class="hr-divider-content hr-divider-heading">Quick stats</h3>
 </div>
@@ -144,12 +145,13 @@
     </div>
   </div>
   <div class="col-md-6 col-xl-3 mb-3 mb-md-4 mb-xl-0">
+
+    <!-- Inventory Cost Example -->
     <div class="statcard statcard-danger">
       <div class="p-3">
-        <span class="statcard-desc">Downloads</span>
+        <span class="statcard-desc">Inventory Cost</span>
         <h2 class="statcard-number">
-          758
-          <small class="delta-indicator delta-negative">1.3%</small>
+          <div id="inventory_cost">{{inventory_cost}}</div>
         </h2>
         <hr class="statcard-hr mb-0">
       </div>
@@ -159,6 +161,7 @@
         data-labels="['a', 'b','c','d','e','f','g']"
         style="width: 189px; height: 47px;"></canvas>
     </div>
+
   </div>
   <div class="col-md-6 col-xl-3 mb-3 mb-md-4 mb-xl-0">
     <div class="statcard statcard-info">
@@ -392,13 +395,25 @@
     </div>
   </div>
 
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/js/tether.min.js"></script>
-    <script src="assets/js/chart.js"></script>
-    <script src="assets/js/tablesorter.min.js"></script>
-    <script src="assets/js/toolkit.js"></script>
-    <script src="assets/js/application.js"></script>
-    <script>
-      // execute/clear BS loaders for docs
-      $(function(){while(window.BS&&window.BS.loader&&window.BS.loader.length){(window.BS.loader.pop())()}})
-    </script>
+  <script src="../assets/js/jquery.min.js"></script>
+  <script src="../assets/js/sweetalert.min.js"></script> 
+  <script src="../assets/js/tether.min.js"></script>
+  <script src="../assets/js/chart.js"></script>
+  <script src="../assets/js/tablesorter.min.js"></script>
+  <script src="../assets/js/toolkit.js"></script>
+  <script src="../assets/js/application.js"></script>
+
+  <script type="text/javascript">
+
+    $( document ).ready(function() {
+      
+      $.ajax({
+        url:"/api/product_cost",  
+        success:function(result) {
+          $('#inventory_cost').text(result.data.total_cost);
+        }
+      });
+        
+    });
+
+  </script>

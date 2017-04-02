@@ -9,7 +9,7 @@
             <button class="nav-toggler nav-toggler-md sidebar-toggler" type="button" data-toggle="collapse" data-target="#nav-toggleable-md">
               <span class="sr-only">Toggle nav</span>
             </button>
-            <a class="sidebar-brand img-responsive" href="admin">
+            <a class="sidebar-brand img-responsive" href="/admin">
               <span class="icon icon-leaf sidebar-brand-icon"></span>
             </a>
           </div>
@@ -28,13 +28,13 @@
             <ul class="nav nav-pills nav-stacked flex-column">
               <li class="nav-header">Main Data Tables</li>
               <li class="nav-item">
-                <a class="nav-link" href="admin">Overview</a>
+                <a class="nav-link" href="/admin">Overview</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link active" href="addproduct">Add Products</a>
+                <a class="nav-link active" href="/addproduct">Add Products</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link "href="admin">Add Customers</a>
+                <a class="nav-link "href="/admin">Add Customers</a>
               </li>
             </ul>
             
@@ -45,10 +45,10 @@
               <li class="nav-header">Related Tables</li>
 
               <li class="nav-item">
-                <a class="nav-link " href="admin">Product Types</a>
+                <a class="nav-link " href="/addproducttype">Product Types</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link "href="admin">Scent Types</a>
+                <a class="nav-link "href="/admin">Scent Types</a>
               </li>
             </ul>
 
@@ -70,10 +70,23 @@
             <!-- Body Box -->
             <hr class="mt-5">
                 
-            <form action="http://localhost:3000/api/product" method="POST">
+            <form action="http://localhost:3000/api/product" method="POST" id="form">
                 <div class="form-group">
                     <label for="inputProductName">Product Name</label>
                     <input type="text" class="form-control" id="inputProductName" name="product_name" placeholder="Enter product name">
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-5">
+                      <label for="inputSize">Product Size or Count</label>
+                      <input type="text" class="form-control" id="inputSize" name="size" placeholder="Enter size or count">
+                    </div>
+                    <div class="col-4">
+                      <label for="inputType">Product Type</label>
+                        <select class="custom-select" id="productTypes" name="id_type">
+                          <option selected>Open this select menu</option>
+                        </select>
+                    </div>
                 </div>
                 
                 <div class="form-group row">
@@ -86,6 +99,11 @@
                         <label for="inputCost">Unit Cost</label>
                         <!-- Note a numeric validator field will only want whole numbers unless we set the step property to "any" -->
                         <input class="form-control" type="number" step="any" id="inputCost" name="cost" placeholder="Enter unit cost">
+                    </div>
+                    <div class="col-3">
+                        <label for="qtyOnHand">Qty on Hand</label>
+                        <!-- Note a numeric validator field will only want whole numbers unless we set the step property to "any" -->
+                        <input class="form-control" type="number" step="any" id="qtyOnHand" name="qty_on_hand" placeholder="Enter qty">
                     </div>
                 </div>
 
@@ -107,13 +125,80 @@
     </div>
   </div>
 
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/js/tether.min.js"></script>
-    <script src="assets/js/chart.js"></script>
-    <script src="assets/js/tablesorter.min.js"></script>
-    <script src="assets/js/toolkit.js"></script>
-    <script src="assets/js/application.js"></script>
-    <script>
-      // execute/clear BS loaders for docs
-      $(function(){while(window.BS&&window.BS.loader&&window.BS.loader.length){(window.BS.loader.pop())()}})
-    </script>
+
+  <script src="../assets/js/jquery.min.js"></script>
+  <script src="../assets/js/sweetalert.min.js"></script> 
+
+  <script type="text/javascript">
+
+    $( document ).ready(function() {
+
+        // Inside the ready function, lets call to fill the product types select menu
+        $.ajax({
+            url: "http://localhost:3000/api/product_types",
+            dataType: "json",
+            type: "GET",
+            data: {},
+            success: function (result) {
+                // We iterate through the array of records we get back from the database API call
+                // If you drill down in the console, you will find the array at result.data.product_types
+                $.each(result.data.product_types, function (index, product_type) {
+                    $('#productTypes').append('<option value=' + product_type.id + '>' + product_type.label + '</option>');
+                })
+            }
+        });
+
+        // Process the form
+        $('form').submit(function(event) {
+
+            // stop the form from submitting the normal way and refreshing the page
+            event.preventDefault();
+
+            // get the form data
+            // there are many ways to get this data using jQuery (you can use the class or id also)
+            var formData = {
+                'product_name'  : $('input[name=product_name]').val(),
+                'size'          : $('input[name=size]').val(),
+                'id_type'       : $("#productTypes").val(),
+                'unit_price'    : $('input[name=unit_price]').val(),
+                'cost'          : $('input[name=cost]').val(),
+                'qty_on_hand'   : $('input[name=qty_on_hand]').val()
+            };
+
+            // process the form
+            $.ajax({
+                type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
+                url         : 'http://localhost:3000/api/product', // the url where we want to POST
+                data        : formData, // our data object
+                dataType    : 'json', // what type of data do we expect back from the server
+                encode      : true
+            })
+                // using the done promise callback
+                .done(function(data) {
+                    // Success, so clear
+                    $('#form').trigger("reset");
+                    // Show success alert
+                    swal("Success!", data.data.product_name + " was added.", "success");
+                })
+                .fail(function(data){
+                    // In a fail, we need to look inside the responseJSON object for our
+                    // APIs error message
+                    swal("Oops...", data.responseJSON.data.error, "error");
+                });
+                
+        });
+
+    });
+
+    // Function to examine any URL Query String parameters 
+    $.urlParam = function(name) {
+      var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+      if (results==null){
+        return null;
+      }
+      else{
+        return results[1] || 0;
+      }
+    }
+  </script>
+
