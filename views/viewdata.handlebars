@@ -1,0 +1,131 @@
+<div class="container">
+    <div class="row">
+
+      <div class="col-md-3 sidebar">
+        <nav class="sidebar-nav">
+
+          <div class="sidebar-header">
+            <button class="nav-toggler nav-toggler-md sidebar-toggler" type="button" data-toggle="collapse" data-target="#nav-toggleable-md">
+              <span class="sr-only">Toggle nav</span>
+            </button>
+            <a class="sidebar-brand img-responsive" href="/admin">
+              <span class="icon icon-leaf sidebar-brand-icon"></span>
+            </a>
+          </div>
+
+          <div class="collapse nav-toggleable-md" id="nav-toggleable-md">
+           
+           <!-- Search for products -->
+           <form class="sidebar-form">
+              <input class="form-control" type="text" placeholder="Search...">
+              <button type="submit" class="btn-link">
+                <span class="icon icon-magnifying-glass"></span>
+              </button>
+            </form>
+
+            <!-- Side Nav Bar Top -->
+            <ul class="nav nav-pills nav-stacked flex-column">
+              <li class="nav-header">Main Data Tables</li>
+              <li class="nav-item">
+                <a class="nav-link" href="/admin">Overview</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" href="/addproduct">Add Products</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link "href="/admin">Add Customers</a>
+              </li>
+            </ul>
+            
+            <hr class="visible-xs mt-3">
+
+            <!-- Side Nav Bar Bottom -->
+            <ul class="nav nav-pills nav-stacked flex-column">
+              <li class="nav-header">Related Tables</li>
+
+              <li class="nav-item">
+                <a class="nav-link " href="/addproducttype">Product Types</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link "href="/admin">Scent Types</a>
+              </li>
+            </ul>
+
+          </div>
+
+        </nav>
+      </div>
+
+
+        <!-- Top page Bar -->
+        <div class="col-md-9 content">
+            <div class="dashhead">
+                <div class="dashhead-titles">
+                    <h6 class="dashhead-subtitle">Richwood Scent-ific</h6>
+                    <h2 class="dashhead-title">View Table Data</h2>
+                </div>
+            </div>
+
+            <!-- Body Box -->
+            <div class="col-md-6 content">
+                <table id="data_table" class="table table-striped table-bordered" cellspacing="0">
+                    <!-- Inject HTML here -->
+                </table>
+            </div>
+            <!-- Body Box -->
+
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
+
+<script src="../assets/js/jquery.min.js"></script>
+<script src="../assets/js/sweetalert.min.js"></script> 
+<script src="https://cdn.datatables.net/v/bs-3.3.7/dt-1.10.13/fh-3.1.2/datatables.min.js"></script>
+
+<script type="text/javascript">
+    // "DT_RowId" will be used for row id
+    $(document).ready(function() {
+
+        // Inside the ready function, lets call to fill the product types select menu
+        $.ajax({
+            url: "http://localhost:3000/api/products",
+            dataType: "json",
+            type: "GET",
+            data: {},
+            success: function (result) {
+
+                // vars for DataTable
+                var columns = [];
+
+                // We iterate through the array of records we get back from the database API call
+                // If you drill down in the console, you will find the array at result.data.products
+
+                // First, we build the columns array dynamically by examining the first record in the returned set.
+                if(result.data.products.length > 0) {
+
+                    var firstRecord = result.data.products[0];
+                  
+                    for(var key in firstRecord) {
+                      // We don't want id visible
+                      if(key == 'id') {
+                        columns.push( { "title" : key, "data" : key, "visible": false } );
+                      } else { 
+                        columns.push( { "title" : key, "data" : key } );
+                      }
+                    }
+                }
+
+                // Draw the table
+                $('#data_table').DataTable( {
+                    "data" : result.data.products,
+                    "columns" : columns
+                } );  
+
+            } // End success
+        }); // End ajax
+
+    } );
+</script>

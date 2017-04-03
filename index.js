@@ -132,6 +132,12 @@ app.get("/addproducttype", function (req, res) {
     res.render('addproducttype', {layout: 'adminmain'});
 });
 
+// Generic Page to view Database tables
+app.get("/viewdata", function (req, res) {
+	// Send the Add Product page
+    res.render('viewdata', {layout: 'adminmain'});
+});
+
 
 
 //-----------------------------------------
