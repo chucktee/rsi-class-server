@@ -31,7 +31,7 @@
                 <a class="nav-link" href="/admin">Overview</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link active" href="/addproduct">Add Products</a>
+                <a class="nav-link active" href="/addproduct">Update Products</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link "href="/admin">Add Customers</a>
@@ -63,7 +63,7 @@
             <div class="dashhead">
                 <div class="dashhead-titles">
                     <h6 class="dashhead-subtitle">Richwood Scent-ific</h6>
-                    <h2 class="dashhead-title">Add a Product</h2>
+                    <h2 class="dashhead-title">Update a Product</h2>
                 </div>
             </div>
 
@@ -120,6 +120,9 @@
                     </label>
                 </div>
                 <button type="submit" name="submitButton" value="save" class="btn btn-primary">save</button>
+            
+                <input type="hidden" name="id">
+
             </form>
 
             <hr class="mt-5">
@@ -140,6 +143,7 @@
     $( document ).ready(function() {
 
         // Inside the ready function, lets call to fill the product types select menu
+        // Product Types
         $.ajax({
             url: "http://localhost:3000/api/product_types",
             dataType: "json",
@@ -153,6 +157,7 @@
                 })
             }
         });
+        // Scent Types
         $.ajax({
             url: "http://localhost:3000/api/scent_types",
             dataType: "json",
@@ -167,6 +172,36 @@
             }
         });
 
+        // Did we get a product to search for on opening?
+
+        // Get product with search
+        $.ajax({
+            url: "http://localhost:3000/api/like_product/Marker",
+            dataType: "json",
+            type: "GET",
+            data: {},
+            success: function (result) {
+              console.log(result.data.products[0].product_name);
+                // We iterate through the array of records we get back from the database API call
+                // If you drill down in the console, you will find the array at result.data.product_types
+                $('#id').val(result.data.products[0].id);
+                $('#inputProductName').val(result.data.products[0].product_name);
+                $('#inputSize').val(result.data.products[0].size);
+
+                // How do we set these?
+                $('#inputProductTypes').val(result.data.products[0].product_name);
+                $('#inputScentTypes').val(result.data.products[0].product_name);
+
+                // $ make the numeric validators unhappy- so...
+                var unitPrice = result.data.products[0].unit_price.replace('$', '');
+                var cost = result.data.products[0].cost.replace('$', '');
+                $('#inputUnitPrice').val(unitPrice);
+                $('#inputCost').val(cost);
+                $('#qtyOnHand').val(result.data.products[0].qty_on_hand);
+            }
+        });
+
+
         // Process the form
         $('form').submit(function(event) {
 
@@ -179,7 +214,6 @@
                 'product_name'  : $('input[name=product_name]').val(),
                 'size'          : $('input[name=size]').val(),
                 'id_type'       : $("#productTypes").val(),
-                'id_scent_type' : $("#scentTypes").val(),
                 'unit_price'    : $('input[name=unit_price]').val(),
                 'cost'          : $('input[name=cost]').val(),
                 'qty_on_hand'   : $('input[name=qty_on_hand]').val()

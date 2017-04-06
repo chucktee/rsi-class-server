@@ -44,10 +44,10 @@
               <li class="nav-header">Related Tables</li>
 
               <li class="nav-item">
-                <a class="nav-link active" href="/addproducttype">Product Types</a>
+                <a class="nav-link " href="/addproducttype">Product Types</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link "href="/addscenttype">Scent Types</a>
+                <a class="nav-link active"href="/addscenttype">Scent Types</a>
               </li>
             </ul>
 
@@ -62,22 +62,27 @@
             <div class="dashhead">
                 <div class="dashhead-titles">
                     <h6 class="dashhead-subtitle">Richwood Scent-ific</h6>
-                    <h2 class="dashhead-title">Add a Product Type</h2>
+                    <h2 class="dashhead-title">Add a Scent Type</h2>
                 </div>
             </div>
 
             <!-- Body Box -->
             <hr class="mt-5">
                 
-            <form action="http://localhost:3000/api/product_type" method="POST">
+            <form action="http://localhost:3000/api/scent_type" method="POST">
                 <div class="form-group">
-                    <label for="inputProductType">Product Type</label>
-                    <input type="text" class="form-control" id="inputProductType" name="label" placeholder="Enter a label">
+                    <label for="inputScentType">Scent Type</label>
+                    <input type="text" class="form-control" id="inputScentType" name="label" placeholder="Enter a label">
                 </div>
 
                 <div class="form-group">
-                    <label for="inputDescription">Product Type Description</label>
+                    <label for="inputDescription">Scent Type Description</label>
                     <textarea class="form-control" id="inputDescription" name="description" rows="3" placeholder="Enter a description"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="inputIngredients">Scent Type Ingredients</label>
+                    <textarea class="form-control" id="inputIngredients" name="ingredient_label" rows="3" placeholder="Enter ingredients"></textarea>
                 </div>
                 
                 <button type="submit" name="submitButton" value="save" class="btn btn-primary">save</button>
@@ -109,14 +114,15 @@
             // get the form data
             // there are many ways to get this data using jQuery (you can use the class or id also)
             var formData = {
-                'label'         : $('input[name=label]').val(),
-                'description'   : $('textarea[name=description]').val()
+                'label'             : $('input[name=label]').val(),
+                'description'       : $('textarea[name=description]').val(),
+                'ingredient_label'  : $('textarea[name=ingredient_label]').val()
             };
 
             // process the form
             $.ajax({
                 type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
-                url         : 'http://localhost:3000/api/product_type', // the url where we want to POST
+                url         : 'http://localhost:3000/api/scent_type', // the url where we want to POST
                 data        : formData, // our data object
                 dataType    : 'json', // what type of data do we expect back from the server
                 encode      : true

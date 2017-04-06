@@ -15,8 +15,8 @@
           <div class="collapse nav-toggleable-md" id="nav-toggleable-md">
            
            <!-- Search for products -->
-           <form class="sidebar-form">
-              <input class="form-control" type="text" placeholder="Search...">
+           <form class="sidebar-form" action="http://localhost/updateproduct" method="POST" id="search-form">
+              <input class="form-control" type="text" placeholder="Search..." name="search_product_name">
               <button type="submit" class="btn-link">
                 <span class="icon icon-magnifying-glass"></span>
               </button>
@@ -46,7 +46,7 @@
                 <a class="nav-link " href="addproducttype">Product Types</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link "href="admin">Scent Types</a>
+                <a class="nav-link "href="addscenttype">Scent Types</a>
               </li>
             </ul>
 
@@ -408,7 +408,7 @@
     $( document ).ready(function() {
       
       $.ajax({
-        url:"/api/product_cost",  
+        url:"http://localhost:3000/api/product_cost",  
         success:function(result) {
           $('#inventory_cost').text(result.data.total_cost);
         }
