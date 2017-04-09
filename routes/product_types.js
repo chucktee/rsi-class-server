@@ -25,8 +25,8 @@ exports.createProductType = function(req, res) {
 		// Validate then insert
 		if(req.body.label) {
             
-			var queryText = 'INSERT INTO product_types (id, label, description) VALUES ($1, $2, $3) RETURNING id, label'
-			client.query(queryText, [uuid.v4(), req.body.label, req.body.description], function(err, result) {
+			var queryText = 'INSERT INTO product_types (id, date_created, label, description) VALUES ($1, $2, $3) RETURNING id, label'
+			client.query(queryText, [uuid.v4(), dateutil.date(), req.body.label, req.body.description], function(err, result) {
 				done();
 				// handle an error from the query
 				if(handleError(err)) return;

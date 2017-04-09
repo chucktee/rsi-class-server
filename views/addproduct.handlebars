@@ -115,7 +115,7 @@
 
                 <div class="form-check">
                     <label class="form-check-label">
-                        <input type="checkbox" class="form-check-input" name="in_store">
+                        <input type="checkbox" class="form-check-input" id="inStore" name="in_store">
                         In-Store Pickup
                     </label>
                 </div>
@@ -182,7 +182,8 @@
                 'id_scent_type' : $("#scentTypes").val(),
                 'unit_price'    : $('input[name=unit_price]').val(),
                 'cost'          : $('input[name=cost]').val(),
-                'qty_on_hand'   : $('input[name=qty_on_hand]').val()
+                'qty_on_hand'   : $('input[name=qty_on_hand]').val(),
+                'in_store'      : $('input[name=in_store]').is(':checked')
             };
 
             // process the form

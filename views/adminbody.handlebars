@@ -1,4 +1,13 @@
 
+  <script src="../assets/js/jquery.min.js"></script>
+  <script src="../assets/js/sweetalert.min.js"></script> 
+  <script src="../assets/js/tether.min.js"></script>
+  <script src="../assets/js/chart.js"></script>
+  <script src="../assets/js/tablesorter.min.js"></script>
+  <script src="../assets/js/toolkit.js"></script>
+  <script src="../assets/js/application.js"></script>
+  <script src="../assets/js/typeahead.bundle.js"></script>
+
   <div class="container">
     <div class="row">
       <div class="col-md-3 sidebar">
@@ -15,12 +24,31 @@
           <div class="collapse nav-toggleable-md" id="nav-toggleable-md">
            
            <!-- Search for products -->
-           <form class="sidebar-form" action="http://localhost/updateproduct" method="POST" id="search-form">
-              <input class="form-control" type="text" placeholder="Search..." name="search_product_name">
-              <button type="submit" class="btn-link">
-                <span class="icon icon-magnifying-glass"></span>
-              </button>
-            </form>
+           <form class="sidebar-form" method="GET" id="search-form">
+              <div id="scrollable-dropdown-menu">
+                <input class="typeahead form-control" type="text" placeholder="search">
+              </div>
+           </form> 
+           <script>
+                $('#scrollable-dropdown-menu .typeahead').typeahead({
+                  highlight: true,
+                },
+                {
+                  name: 'product_name',
+                  displayKey: 'product_name',
+                  source: function(query, syncResults, asyncResults) {
+                    $.get('http://localhost:3000/api/like_product/' + query, function(data) {
+                      // Examine the returned result and find the 
+                      // products array as the data.products object
+                      asyncResults(data.data.products);
+                    });
+                  }
+                }).on('typeahead:selected', function (obj, datum) {
+                    // Send the product id we want to update to the update page in the URL
+                    var pageURL = "http://localhost/updateproduct/" + datum.id;
+                    $('#search-form').attr('action', pageURL).submit();
+                });
+           </script>
 
             <!-- Side Nav Bar Top -->
             <ul class="nav nav-pills nav-stacked flex-column">
@@ -395,23 +423,30 @@
     </div>
   </div>
 
-  <script src="../assets/js/jquery.min.js"></script>
-  <script src="../assets/js/sweetalert.min.js"></script> 
-  <script src="../assets/js/tether.min.js"></script>
-  <script src="../assets/js/chart.js"></script>
-  <script src="../assets/js/tablesorter.min.js"></script>
-  <script src="../assets/js/toolkit.js"></script>
-  <script src="../assets/js/application.js"></script>
-
   <script type="text/javascript">
 
     $( document ).ready(function() {
       
+      // Get the on hand inventory cost
       $.ajax({
         url:"http://localhost:3000/api/product_cost",  
         success:function(result) {
           $('#inventory_cost').text(result.data.total_cost);
         }
+      });
+
+      // Page body-
+      $(window).click(function() {
+        $('#scrollable-dropdown-menu').attr("value","");
+      });
+
+      // Search bar -
+      // Clear autocomplete history
+      $('#scrollable-dropdown-menu .typeahead').attr("value","");
+
+      // Clear on focus
+      $('#scrollable-dropdown-menu .typeahead').focus(function() {
+        $(this).val(''); 
       });
         
     });

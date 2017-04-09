@@ -70,7 +70,7 @@
             <!-- Body Box -->
             <hr class="mt-5">
                 
-            <form action="http://localhost:3000/api/product" method="POST" id="form">
+            <form action="http://localhost:3000/api/product" method="PUT" id="form">
                 <div class="form-group">
                     <label for="inputProductName">Product Name</label>
                     <input type="text" class="form-control" id="inputProductName" name="product_name" placeholder="Enter product name">
@@ -115,13 +115,13 @@
 
                 <div class="form-check">
                     <label class="form-check-label">
-                        <input type="checkbox" class="form-check-input" name="in_store">
+                        <input type="checkbox" class="form-check-input" id="inStore" name="in_store">
                         In-Store Pickup
                     </label>
                 </div>
                 <button type="submit" name="submitButton" value="save" class="btn btn-primary">save</button>
             
-                <input type="hidden" name="id">
+                <input type="hidden" id="productId" name="product_id">
 
             </form>
 
@@ -141,6 +141,11 @@
   <script type="text/javascript">
 
     $( document ).ready(function() {
+
+        // Hmm- this may seem strange that what looks like a variable is being placed
+        // inside quotes- BUT this is because it's being replaced on the server- stamped in
+        // before it gets sent to the browser which has no idea who "id" is. Hope that makes sense
+        console.log("{{id}}");
 
         // Inside the ready function, lets call to fill the product types select menu
         // Product Types
@@ -176,31 +181,37 @@
 
         // Get product with search
         $.ajax({
-            url: "http://localhost:3000/api/like_product/Marker",
+            url: "http://localhost:3000/api/product/{{id}}",
             dataType: "json",
             type: "GET",
             data: {},
             success: function (result) {
-              console.log(result.data.products[0].product_name);
                 // We iterate through the array of records we get back from the database API call
                 // If you drill down in the console, you will find the array at result.data.product_types
-                $('#id').val(result.data.products[0].id);
+                $('#productId').val(result.data.products[0].id);
+                
                 $('#inputProductName').val(result.data.products[0].product_name);
                 $('#inputSize').val(result.data.products[0].size);
 
-                // How do we set these?
-                $('#inputProductTypes').val(result.data.products[0].product_name);
-                $('#inputScentTypes').val(result.data.products[0].product_name);
-
+                // Note how do we set select menus. Remember the difference between value and label
+                if(result.data.products[0].id_type) {
+                  $('#productTypes').val(result.data.products[0].id_type);
+                }
+                if(result.data.products[0].id_scent_type) {
+                  $('#scentTypes').val(result.data.products[0].id_scent_type);
+                }
+                
                 // $ make the numeric validators unhappy- so...
                 var unitPrice = result.data.products[0].unit_price.replace('$', '');
                 var cost = result.data.products[0].cost.replace('$', '');
                 $('#inputUnitPrice').val(unitPrice);
                 $('#inputCost').val(cost);
                 $('#qtyOnHand').val(result.data.products[0].qty_on_hand);
+                
+                // Checkbox is unique too
+                $("#inStore").prop('checked', result.data.products[0].in_store);
             }
         });
-
 
         // Process the form
         $('form').submit(function(event) {
@@ -211,17 +222,20 @@
             // get the form data
             // there are many ways to get this data using jQuery (you can use the class or id also)
             var formData = {
+                'id'            : $('input:hidden[name=product_id]').val(),
                 'product_name'  : $('input[name=product_name]').val(),
                 'size'          : $('input[name=size]').val(),
                 'id_type'       : $("#productTypes").val(),
+                'id_scent_type' : $("#scentTypes").val(),
                 'unit_price'    : $('input[name=unit_price]').val(),
                 'cost'          : $('input[name=cost]').val(),
-                'qty_on_hand'   : $('input[name=qty_on_hand]').val()
+                'qty_on_hand'   : $('input[name=qty_on_hand]').val(),
+                'in_store'      : $('input[name=in_store]').is(':checked')
             };
 
             // process the form
             $.ajax({
-                type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
+                type        : 'PUT', // define the type of HTTP verb we want to use (POST for our form)
                 url         : 'http://localhost:3000/api/product', // the url where we want to POST
                 data        : formData, // our data object
                 dataType    : 'json', // what type of data do we expect back from the server
@@ -229,15 +243,29 @@
             })
                 // using the done promise callback
                 .done(function(data) {
-                    // Success, so clear
-                    $('#form').trigger("reset");
                     // Show success alert
-                    swal("Success!", data.data.product_name + " was added.", "success");
+                    swal({   
+                      title: "Success!",   
+                      text: data.data.product_name + " was updated.",   
+                      type: "success"   
+                    }, function(isConfirm) {   
+                      if (isConfirm) {     
+                        window.location.href="/admin";  
+                      } 
+                    })
                 })
                 .fail(function(data){
                     // In a fail, we need to look inside the responseJSON object for our
                     // APIs error message
-                    swal("Oops...", data.responseJSON.data.error, "error");
+                    swal({   
+                      title: "Oops...",   
+                      text: data.responseJSON.data.error,   
+                      type: "error"   
+                    }, function(isConfirm) {   
+                      if (isConfirm) {     
+                        window.location.href="/admin";  
+                      } 
+                    })
                 });
                 
         });
@@ -245,14 +273,18 @@
     });
 
     // Function to examine any URL Query String parameters 
-    $.urlParam = function(name) {
-      var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
-      if (results==null){
-        return null;
-      }
-      else{
-        return results[1] || 0;
-      }
-    }
+    var urlParams;
+    (window.onpopstate = function () {
+        var match,
+            pl     = /\+/g,  // Regex for replacing addition symbol with a space
+            search = /([^&=]+)=?([^&]*)/g,
+            decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); },
+            query  = window.location.search.substring(1);
+
+        urlParams = {};
+        while (match = search.exec(query))
+          urlParams[decode(match[1])] = decode(match[2]);
+    })();
+
   </script>
 

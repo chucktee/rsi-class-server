@@ -29,8 +29,8 @@ exports.createProduct = function(req, res) {
 			var unit_price = req.body.unit_price ? req.body.unit_price : 0;
 			var cost = req.body.cost ? req.body.cost : 0.00;
 
-			var queryText = 'INSERT INTO products (id, product_name, id_type, id_scent_type, qty_on_hand, size, unit_price, cost, in_store) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING id, product_name'
-			client.query(queryText, [uuid.v4(), req.body.product_name, req.body.id_type, req.body.id_scent_type, qty_on_hand, req.body.size, unit_price, cost, req.body.in_store], function(err, result) {
+			var queryText = 'INSERT INTO products (id, date_created, product_name, id_type, id_scent_type, qty_on_hand, size, unit_price, cost, in_store) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING id, product_name'
+			client.query(queryText, [uuid.v4(), dateutil.date(), req.body.product_name, req.body.id_type, req.body.id_scent_type, qty_on_hand, req.body.size, unit_price, cost, req.body.in_store], function(err, result) {
 				done();
 				// handle an error from the query
 				if(handleError(err)) return;
@@ -196,7 +196,7 @@ exports.searchProduct = function(req, res) {
     	// handle an error from the connect
 		if(handleError(err)) return;
 
-		var queryText = "SELECT * FROM products WHERE product_name ILIKE $1 LIMIT 1;";
+		var queryText = "SELECT * FROM products WHERE product_name ILIKE $1;";
 		var param = '%' + req.params.partial_name + '%';
 		client.query(queryText, [param], function(err, result) {
 			if(handleError(err)) return;
@@ -211,6 +211,7 @@ exports.searchProduct = function(req, res) {
 
 	});
 };
+
 
 //---------------------------------------------------------------------------------------
 // Update
@@ -248,6 +249,11 @@ exports.updateProduct = function(req, res) {
 						argumentCount = argumentCount + 1;
 						queryText = queryText + ', id_type = $' + argumentCount; 
 						valueArray.push(req.body.id_type);
+					}
+					if(req.body.id_scent_type) {
+						argumentCount = argumentCount + 1;
+						queryText = queryText + ', id_scent_type = $' + argumentCount; 
+						valueArray.push(req.body.id_scent_type);
 					}
 					if(req.body.qty_on_hand) {
 						argumentCount = argumentCount + 1;

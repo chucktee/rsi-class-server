@@ -86,9 +86,10 @@ app.get("/addproduct", function (req, res) {
 });
 
 // Page to update products in the Database
-app.post("/updateproduct", function (req, res) {
-	// Send the Update Product page
-    res.render('updateproduct', {layout: 'adminmain'});
+app.get("/updateproduct/:id", function (req, res) {
+	// Send the Update Product page and pass in the :id 
+	// and the URL to return to after saving in the update page
+    res.render('updateproduct', {layout: 'adminmain', id: req.params.id, return_to: req.params.return_to});
 });
 
 //-----------------------------------------
