@@ -23,8 +23,20 @@ We will be adding an API to our backend database, Postgres.
     ``` 
 ## Running the app
 
-1. From a command line / terminal, cd into the project folder then run with:
+We have 2 separate node apps in this setup. One is our web server, and the other will act as an API server that will be accessible to our own web pages, mobile apps and external customers who may want access to our data.
+
+NOTE: When running the web_server.js, you will need admin / root privlidges due to the port number being 80.
+
+1. From a command line / terminal, cd into the project folder then run the web server with:
 
     ```bash
-    node index.js
+    node web_server.js
     ``` 
+    
+2. From a seperate command line / terminal, cd into the project folder then run the api server with:
+
+    ```bash
+    node api_server.js
+    ```  
+    
+3. Open a browser and go to http://localhost for the default home page (we are working on that) or http://localhost/admin for the administrator pages.   
