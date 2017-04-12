@@ -10,6 +10,11 @@ body, html {
     background-image: linear-gradient(rgb(104, 145, 162), rgb(12, 97, 33));
 }
 
+.buttons-column {
+    width: 350px;
+    padding: 40px 40px;
+}
+
 .card-container.card {
     max-width: 350px;
     padding: 40px 40px;

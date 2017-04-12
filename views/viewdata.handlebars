@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
 <div class="container">
     <div class="row">
 
@@ -67,7 +69,7 @@
             </div>
 
             <!-- Body Box -->
-            <div class="col-md-6 content">
+            <div class="col-md-12 content">
                 <table id="data_table" class="table table-striped table-bordered" cellspacing="0">
                     <!-- Inject HTML here -->
                 </table>
@@ -110,19 +112,39 @@
                   
                     for(var key in firstRecord) {
                       // We don't want id visible
-                      if(key == 'id') {
+                      if(key == 'id' || key == 'id_type' || key == 'id_scent_type') {
                         columns.push( { "title" : key, "data" : key, "visible": false } );
                       } else { 
+                        // Push in the data
                         columns.push( { "title" : key, "data" : key } );
                       }
                     }
                 }
+                // Push in our buttons as a final column
+                columns.push( {"defaultContent": "<button class=\"btn btn-default\"><i class=\"fa fa-pencil\"></i></button><button class=\"btn btn-delete\"><i class=\"fa fa-trash\"></i></button>"} )
 
                 // Draw the table
-                $('#data_table').DataTable( {
+                var table = $('#data_table').DataTable( {
                     "data" : result.data.products,
-                    "columns" : columns
+                    "columns" : columns,
+                    columnDefs: [
+                      { width: '500px', targets: 0 }
+                    ],
+                    fixedColumns: true
                 } );  
+ 
+                $('#data_table tbody').on( 'click', 'button', function () {
+                    var data = table.row( $(this).parents('tr') ).data();
+                    var buttonClass = $(this).attr("class");
+                    if(buttonClass == "btn btn-default") {
+                      // How would you hook this up?
+                      alert( "Update " + data.id );
+                    } else {
+                      // And this? What about the "are you sure?"
+                      alert( "Delete " + data.id );
+                    }
+                    
+                } );
 
             } // End success
         }); // End ajax

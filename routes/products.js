@@ -65,7 +65,7 @@ exports.readProducts = function(req, res) {
     	
     	// handle an error from the connect
 		if(handleError(err)) return;
-		var queryText = 'SELECT * FROM products;';
+		var queryText = 'SELECT p.*, t.label as product_type, s.label as scent_type FROM products p LEFT JOIN product_types t ON (t.id = p.id_type) LEFT JOIN scent_types s ON (s.id = p.id_scent_type);';
 		client.query(queryText, [], function(err, result) {
 			if(handleError(err)) return;
 			done();
