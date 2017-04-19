@@ -168,9 +168,10 @@ body {
 
 .slider > img {
   position: absolute;
-  right: 10%;
-  bottom: 0;
-  height: 100%;
+  right: 5%;
+  top: 10;
+  width: 50%;
+  height: auto;
   opacity: 0;
   -webkit-transform: translateX(500px);
   transform: translateX(500px);

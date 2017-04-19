@@ -33,7 +33,7 @@
       <div class="slider slide-1">
         <img src="../assets/web/images/products/erasers.png" alt="">
         <div class="slider-content">
-          <h4>New Product</h4>
+          <h4>-</h4>
           <h2>Geddes Mash Ups Scented Kneaded Erasers</h2>
           <button type="button" class="buy-now-btn" name="button">$22.56</button>
         </div>
@@ -70,7 +70,7 @@
 
       <!-- Slider #4 -->
       <div class="slider slide-4">
-        <img src="../assets/web/images/model-4.png" alt="">
+        <img src="../assets/web/images/model-4.png" alt="" max-width=300px height=auto>
         <div class="slider-content">
           <h4>New Product</h4>
           <h2>Denim Longline T-Shirt Dress With Split</h2>
@@ -87,15 +87,62 @@
     <script src="../assets/web/js/app.js" charset="utf-8"></script>
 
 <script type="text/javascript">
-$.ajax({
-    url: "http://localhost:3000/api/product_types",
-    dataType: "json",
-    type: "GET",
-    data: {},
-    success: function (result) {
-        $('#prod1').text(result.data.product_types[0].label);
-        $('#prod2').text(result.data.product_types[1].label);
-        $('#prod3').text(result.data.product_types[2].label);
-    }
+$( document ).ready(function() {
+
+  $.ajax({
+      url: "http://localhost:3000/api/product_types",
+      dataType: "json",
+      type: "GET",
+      data: {},
+      success: function (result) {
+          // Menu bar
+          $('#prod1').text(result.data.product_types[0].label);
+          $('#prod2').text(result.data.product_types[1].label);
+          $('#prod3').text(result.data.product_types[2].label);
+      }
+  });
+
+  $.ajax({
+        url: "http://localhost:3000/api/products",
+        dataType: "json",
+        type: "GET",
+        data: {},
+        success: function (result) {
+
+            // This was for testing: $('.slider.slide-1').find('h2').css( "background-color", "red" );
+
+            // Did we get any products in the ajax call?
+            if(result.data.products.length > 0) {
+              
+              // Loop through the array of product records
+              for(var x=0; x<result.data.products.length;x++) {
+              
+                // We're only doing 4 slides
+                if(x < 4) {
+                  
+                  // Build a string we can use to find each div by name- ex. .slider.slide-x
+                  var classToFind = '.slider.slide-' + (x+1);
+                  $(classToFind).find('h2').html(result.data.products[x].product_name);
+                  $(classToFind).find('button').html(result.data.products[x].unit_price);
+
+                  // Build a string for the images path and add the file name from the database
+                  var imgSrc = "../assets/web/images/products/" + result.data.products[x].product_pic;
+                  $(classToFind).find('img').attr('src', imgSrc);
+              
+                  // Is this a Best Seller? If so, replace the New Product text with Best Seller
+                  if(result.data.products[x].best_seller == true) {
+                    $(classToFind).find('h4').html('Best Seller');
+                  }
+              
+                } // End if x < 4
+              
+              } // End for loop
+            
+            } // End did we get any records
+
+        } // End success function
+    });
+
 });
+
 </script>
