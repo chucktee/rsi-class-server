@@ -60,6 +60,7 @@ app.listen(app.get('port'), function(){
 	console.log( 'The API Server is running at http://localhost:3000');
 });
 
+module.exports = app;
 
 //-----------------------------------------
 // API routes
@@ -81,6 +82,9 @@ app.put('/api/cart', cart.updateCart);
 
 // Delete
 app.delete('/api/cart/:id', cart.deleteCartLine);
+
+// Version
+app.get('/api/cart-version/', cart.readCartVersion);
 
 //-----------------------------------------
 

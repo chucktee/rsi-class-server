@@ -7,6 +7,12 @@ var uuid = require('node-uuid');
 var dateutil = require('dateutil');
 
 //-------------------------------------------------------------------------------------------
+// Version
+exports.readCartVersion = function(req, res) {
+	res.status(200).json({result: 'success', data:{ version : "1.0" }});		
+};
+
+//-------------------------------------------------------------------------------------------
 // Add an item to the Cart
 exports.addCart = function(req, res) {
 	
