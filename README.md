@@ -1,4 +1,7 @@
-# rsi-class-server
+# Richwood Scientific Bootcamp Class Project Web+API
+[![npm version](https://badge.fury.io/js/npm.svg)](https://badge.fury.io/js/npm)
+[![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)
+
 Server for our class fictional company.
 We will be adding an API to our backend database, Postgres.
 
