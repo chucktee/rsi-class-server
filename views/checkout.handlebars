@@ -1,0 +1,41 @@
+
+    <div id="paypal-button"></div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" charset="utf-8"></script>
+    <script src="../assets/web/js/app.js" charset="utf-8"></script>
+
+    <!-- PayPal -->
+    <script src="https://www.paypalobjects.com/api/checkout.js"></script>
+
+
+<script type="text/javascript">
+$( document ).ready(function() {
+
+  $.ajax({
+      url: "http://localhost:3000/api/product_types",
+      dataType: "json",
+      type: "GET",
+      data: {},
+      success: function (result) {
+          // Menu bar
+          $('#prod1').text(result.data.product_types[0].label);
+          $('#prod2').text(result.data.product_types[1].label);
+          $('#prod3').text(result.data.product_types[2].label);
+      }
+  });
+
+  // Render the PayPal button div
+  paypal.Button.render({
+        env: 'sandbox', // Optional: specify 'production' environment
+        payment: function() {
+            // Set up the payment here, when the buyer clicks on the button
+        },
+        onAuthorize: function(data, actions) {
+            // Execute the payment here, when the buyer approves the transaction
+       }  
+    }, '#paypal-button');
+
+});
+
+</script>

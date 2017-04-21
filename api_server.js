@@ -66,6 +66,27 @@ app.listen(app.get('port'), function(){
 //
 
 //-----------------------------------------
+// Shopping Cart
+
+var cart = require('./routes/cart');
+
+// Add an item and quantity
+app.post('/api/cart', cart.addCart);
+
+// Get all items for a specific customer
+app.get('/api/cart/:id_customer', cart.readCart);
+
+// Update
+app.put('/api/cart', cart.updateCart);
+
+// Delete
+app.delete('/api/cart/:id', cart.deleteCartLine);
+
+//-----------------------------------------
+
+
+
+//-----------------------------------------
 // Products
 
 var products = require('./routes/products');

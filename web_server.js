@@ -65,6 +65,11 @@ app.post("/login", function (req, res) {
 	res.status(200).json({result: 'success', data:{}});
 });
 
+// Checkout Page
+app.get("/checkout", function (req, res) {
+	res.render('checkout');
+});
+
 //-----------------------------------------
 // Dashboard and Admin pages
 //-----------------------------------------

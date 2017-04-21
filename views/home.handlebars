@@ -35,7 +35,7 @@
         <div class="slider-content">
           <h4>-</h4>
           <h2>Geddes Mash Ups Scented Kneaded Erasers</h2>
-          <button type="button" class="buy-now-btn" name="button">$22.56</button>
+          <button type="button" class="buy-now-btn" name="button" id=".">$22.56</button>
         </div>
         <div class="number-pagination">
           <span>1</span>
@@ -48,7 +48,7 @@
         <div class="slider-content">
           <h4>New Product</h4>
           <h2>Denim Longline T-Shirt Dress With Split</h2>
-          <button type="button" class="buy-now-btn" name="button">$130</button>
+          <button type="button" class="buy-now-btn" name="button" id=".">$130</button>
         </div>
         <div class="number-pagination">
           <span>2</span>
@@ -61,7 +61,7 @@
         <div class="slider-content">
           <h4>New Product</h4>
           <h2>Denim Longline T-Shirt Dress With Split</h2>
-          <button type="button" class="buy-now-btn" name="button">$130</button>
+          <button type="button" class="buy-now-btn" name="button" id=".">$130</button>
         </div>
         <div class="number-pagination">
           <span>3</span>
@@ -74,7 +74,7 @@
         <div class="slider-content">
           <h4>New Product</h4>
           <h2>Denim Longline T-Shirt Dress With Split</h2>
-          <button type="button" class="buy-now-btn" name="button">$130</button>
+          <button type="button" class="buy-now-btn" name="button" id=".">$130</button>
         </div>
         <div class="number-pagination">
           <span>4</span>
@@ -125,6 +125,9 @@ $( document ).ready(function() {
                   $(classToFind).find('h2').html(result.data.products[x].product_name);
                   $(classToFind).find('button').html(result.data.products[x].unit_price);
 
+                  // So we can call add to cart with the product id later
+                  $(classToFind).find('button').attr('id', result.data.products[x].id);
+
                   // Build a string for the images path and add the file name from the database
                   var imgSrc = "../assets/web/images/products/" + result.data.products[x].product_pic;
                   $(classToFind).find('img').attr('src', imgSrc);
@@ -142,6 +145,23 @@ $( document ).ready(function() {
 
         } // End success function
     });
+
+    $('.slider').on( 'click', 'button', function () {
+        //alert ($(this).closest("div").attr("class"));
+        $.ajax({
+              url: "http://localhost:3000/api/cart",
+              dataType: "json",
+              type: "POST",
+              data: {
+                id_customer: '123',
+                quantity: '1',
+                id_product: $(this).attr("id")
+              },
+              success: function (result) {
+                  console.log(result);
+              }
+          });
+    } );
 
 });
 

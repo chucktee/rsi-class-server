@@ -312,10 +312,6 @@ exports.updateProduct = function(req, res) {
   	});
 };
 
-
-
-
-
 //---------------------------------------------------------------------------------------
 // Delete
 exports.deleteProduct = function(req, res) {
