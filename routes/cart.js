@@ -1,7 +1,7 @@
 "use strict";
 
 // UUID
-var uuid = require('node-uuid');
+var uuid = require('uuid');
 
 // Dates
 var dateutil = require('dateutil');
@@ -83,6 +83,7 @@ exports.readCart = function(req, res) {
     	
     	// handle an error from the connect
 		if(handleError(err)) return;
+		
 		var queryText = 'SELECT c.*, (p.unit_price::numeric * c.quantity) AS line_total FROM cart c LEFT JOIN products p ON (p.id = c.id_product) WHERE c.id_customer = $1;';
 		client.query(queryText, [req.params.id_customer], function(err, result) {
 			if(handleError(err)) return;

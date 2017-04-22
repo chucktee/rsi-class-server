@@ -1,7 +1,7 @@
 "use strict";
 
 // UUID
-var uuid = require('node-uuid');
+var uuid = require('uuid');
 
 // Dates
 var dateutil = require('dateutil');

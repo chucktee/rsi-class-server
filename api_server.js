@@ -20,7 +20,6 @@ app.use(bodyParser.json())
 // Morgan for logging
 var morgan = require('morgan');
 app.use(morgan(':date :remote-addr :method :url :status :response-time ms - :res[content-length]'));
-
 // Kill cache 304 response
 app.disable('etag');
 
@@ -65,6 +64,31 @@ module.exports = app;
 //-----------------------------------------
 // API routes
 //
+
+//-----------------------------------------
+// Customers
+
+var customers = require('./routes/customers');
+
+// Create
+app.post('/api/customer', customers.createCustomer);
+
+// Get specific customer
+app.get('/api/customer/:id', customers.readCustomer);
+
+// Update
+app.put('/api/customer', customers.updateCustomer);
+
+// Delete
+app.delete('/api/customer/:id', customers.deleteCustomer);
+
+// Login
+app.post('/api/login/', customers.loginCustomer);
+
+// Version
+app.get('/api/customer-version/', customers.readCustomerVersion);
+
+//-----------------------------------------
 
 //-----------------------------------------
 // Shopping Cart
