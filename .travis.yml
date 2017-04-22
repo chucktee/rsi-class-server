@@ -1,3 +1,16 @@
 language: node_js
 node_js:
   - 6.9.4
+
+services:
+  - postgresql
+
+addons:
+  postgresql: "9.6"  
+
+before_script:
+  - psql < postgres_setup.sql -U postgres --no-password
+  - pg_restore -U postgres --dbname="richwood-scentific" ./database_backup/ClassData.sql
+  
+
+
