@@ -37,7 +37,7 @@ exports.createCustomer = function(req, res) {
     	
     	// handle an error from the connect
 		if(handleError(err)) return;
-			
+
 		if(req.body.data) {
 
 			// Validate
@@ -277,7 +277,7 @@ exports.loginCustomer = function(req, res) {
                         }
         			});
                 } else {
-					res.status(403).json({ result:'success', data:{ customer: emptyCustomer } });
+					res.status(403).json({ result:'success', data:{ customer: customer } });
 				}
             });
       		

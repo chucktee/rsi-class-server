@@ -52,18 +52,18 @@ app.get('/construction', function(req,res) {
 	res.render('construction');
 });
 
+// Stub of signup page
+app.get("/signup", function (req, res) {
+	// Send the login page
+	res.render('signup');
+});
+
 // Stub of login page
 app.get("/login", function (req, res) {
 	// Send the login page
 	res.render('login');
 });
 
-// Request to actually login
-app.post("/login", function (req, res) {
-    console.log(req.body.first_name);
-	// Close connection
-	res.status(200).json({result: 'success', data:{}});
-});
 
 // Checkout Page
 app.get("/checkout", function (req, res) {

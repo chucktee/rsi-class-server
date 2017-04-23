@@ -89,7 +89,7 @@ describe('POST /api/login', function() {
     });
 });
 
-// Unsuccessful Login
+// Unsuccessful Login, bad password valid account
 describe('POST /api/login', function() {
     it('successfully trap an unsuccessful login by returning a 403 and empty customer info', function(done) {
     
@@ -97,6 +97,29 @@ describe('POST /api/login', function() {
         .post('/api/login')
         .set('Content-Type', 'application/json')
         .send({'email': test_email, 'password': 'badpassword' })
+        .set('Accept', 'application/json')
+        .expect('Content-Type', /json/)
+        .expect(403)
+        .end(function(err, res) {
+            if(err) throw err;
+            // We should get back a 403
+            //{result: 'success', data:{ customer : []] }}
+            expect(res.body.result).to.equal('success');
+            expect(res.body.data).to.be.an('object');
+            expect(res.body.data.customer.length).to.equal(0);
+            done();
+        });
+    });
+});
+
+// Unsuccessful Login, invalid account
+describe('POST /api/login', function() {
+    it('successfully trap an unsuccessful login by returning a 403 and empty customer info', function(done) {
+    
+    request(app)
+        .post('/api/login')
+        .set('Content-Type', 'application/json')
+        .send({'email': 'unknown@unknown.com', 'password': 'badpassword' })
         .set('Accept', 'application/json')
         .expect('Content-Type', /json/)
         .expect(403)

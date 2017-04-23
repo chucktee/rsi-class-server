@@ -11,9 +11,11 @@
             <span id="reauth-email" class="reauth-email"></span>
 
             <input type="email" id="email" name="email" class="form-control" placeholder="Email address" required autofocus>
-            <input type="password" id="password" name="password" class="form-control" placeholder="password" required>
-            
-            <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Login</button>
+            <input type="password" id="password" name="password" class="form-control" placeholder="password">
+            <input type="text" id="first_name" name="first_name" class="form-control" placeholder="First name">
+            <input type="text" id="last_name" name="last_name" class="form-control" placeholder="Last name">
+
+            <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Sign Up!</button>
 
         </form><!-- /form -->
 
@@ -36,17 +38,17 @@ $( document ).ready(function() {
         var email = $('input[name="email"]').val();
 
         $.ajax({
-            url: "http://localhost:3000/api/login",
+            url: "http://localhost:3000/api/customer",
             dataType: "json",
             type: "POST",
             contentType: 'application/json',
-            data: JSON.stringify({ "email": email, "password": password } ),
+            data: JSON.stringify({ "data" : { "email": email, "password": password } }),
             success: function (result) {
                 // TODO: make a cookie or otherwise store local information about the customer
                 window.location.href = "/";
             },
             error: function(XMLHttpRequest, textStatus, errorThrown) { 
-                // A failure will usually mean an invalid login
+                // A failure will usually mean an account with this email already exists
                 // TODO: Properly test if it is a 403 (already exists) or something else
                 window.location.href = "/login";
             }  
