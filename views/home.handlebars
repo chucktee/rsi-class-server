@@ -85,9 +85,23 @@
     <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" charset="utf-8"></script>
     <script src="../assets/web/js/app.js" charset="utf-8"></script>
+    <script src="../assets/web/js/js.cookie.js"></script>
 
 <script type="text/javascript">
 $( document ).ready(function() {
+
+  var id_customer = Cookies.get('richwood-scentific');
+
+  if(id_customer) {
+    // Logged in, cookie already exists
+    console.log("using customer id: " + id_customer);
+  } else {
+    // Not logged in, create temp uuid and make a cookie
+    var id_customer = generateUUID();
+    Cookies.set('richwood-scentific', id_customer);
+    console.log("generated a temp id: " + id_customer);
+  }
+
 
   $.ajax({
       url: "http://localhost:3000/api/product_types",
@@ -153,7 +167,7 @@ $( document ).ready(function() {
               dataType: "json",
               type: "POST",
               data: {
-                id_customer: '123',
+                id_customer: id_customer,
                 quantity: '1',
                 id_product: $(this).attr("id")
               },
@@ -162,6 +176,19 @@ $( document ).ready(function() {
               }
           });
     } );
+    
+    function generateUUID() { // Public Domain/MIT
+      var d = new Date().getTime();
+      if (typeof performance !== 'undefined' && typeof performance.now === 'function'){
+          d += performance.now(); //use high-precision timer if available
+      }
+      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+          var r = (d + Math.random() * 16) % 16 | 0;
+          d = Math.floor(d / 16);
+          return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+      });
+    }
+    
 
 });
 

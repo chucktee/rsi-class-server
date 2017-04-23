@@ -22,10 +22,14 @@
 
 <!-- Scripts -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" charset="utf-8"></script>
+<script src="../assets/web/js/js.cookie.js"></script>
 
 <script type="text/javascript">
 
 $( document ).ready(function() {
+
+    // Remove any leftovers
+    Cookies.remove('richwood-scentific');
 
     $("form").submit(function() { 
 
@@ -42,6 +46,9 @@ $( document ).ready(function() {
             contentType: 'application/json',
             data: JSON.stringify({ "email": email, "password": password } ),
             success: function (result) {
+                
+                var id_customer = result.data.customer[0].id;
+                Cookies.set('richwood-scentific', id_customer);
                 // TODO: make a cookie or otherwise store local information about the customer
                 window.location.href = "/";
             },
