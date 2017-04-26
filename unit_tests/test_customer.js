@@ -196,7 +196,7 @@ describe('DELETE /api/customer', function() {
             //{result: 'success', data:{ count : n }}
             expect(res.body.result).to.equal('success');
             expect(res.body.data).to.be.an('object');
-            expect(res.body.data.count).to.be.above(0);
+            expect(res.body.data.count).to.equal(1);
             done();
         });
     });

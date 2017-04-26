@@ -51,13 +51,13 @@ exports.addCart = function(req, res) {
 
 						if(quantity_result.rowCount > 0) {
 							use_quantity += parseInt(quantity_result.rows[0].quantity);
-							save_query_text = "UPDATE cart SET quantity = $1, date_updated = $2 WHERE id = $3 returning id;"
+							save_query_text = "UPDATE cart SET quantity = $1, date_updated = $2 WHERE id = $3 returning id, quantity;"
 							bind_array = [use_quantity, dateutil.date(), quantity_result.rows[0].id];
-							console.log("Found an item already with quantity of " + quantity_result.rows[0].quantity + " setting quantity to " + use_quantity);
+							//console.log("Found an item already with quantity of " + quantity_result.rows[0].quantity + " setting quantity to " + use_quantity);
 						} else {
-							save_query_text = 'INSERT INTO cart (id, date_created, date_updated, id_product, id_customer, quantity) VALUES ($1, $2, $3, $4, $5, $6) returning id;'
+							save_query_text = 'INSERT INTO cart (id, date_created, date_updated, id_product, id_customer, quantity) VALUES ($1, $2, $3, $4, $5, $6) returning id, quantity;'
 							bind_array = [uuid.v4(), dateutil.date(), dateutil.date(), req.body.id_product, req.body.id_customer, use_quantity];
-							console.log("Did not find a matching item. Setting quantity to " + use_quantity);
+							//console.log("Did not find a matching item. Setting quantity to " + use_quantity);
 						}
 
 						client.query(save_query_text, bind_array, function(err, result) {
@@ -65,7 +65,7 @@ exports.addCart = function(req, res) {
 							// handle an error from the query
 							if(handleError(err)) return;
 							var totalForThisAddition = parseInt(req.body.quantity) * product_result.rows[0].unit_price;
-							res.status(200).json({result: 'success', data:{ id : result.rows[0].id, unit_price: product_result.rows[0].unit_price, total: totalForThisAddition }});	
+							res.status(200).json({result: 'success', data:{ id : result.rows[0].id, quantity: result.rows[0].quantity, unit_price: product_result.rows[0].unit_price, total: totalForThisAddition }});	
 						});
 
 					});
