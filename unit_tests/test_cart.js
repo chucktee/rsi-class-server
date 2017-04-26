@@ -29,6 +29,20 @@ describe('GET /api/cart-version', function() {
 
 // Create
 describe('POST /api/cart', function() {
+    it('respond with 200', function(done) {
+    
+    request(app)
+        .post('/api/cart')
+        .set('Accept', 'application/json')
+        .set('Content-Type', 'application/json')
+        .send( {'id_customer': test_id_customer, 'quantity': 1, 'id_product': test_id_prpoduct } )
+        .expect('Content-Type', /json/)
+        .expect(200, done); 
+    });
+});
+
+// Create - no customer id
+describe('POST /api/cart', function() {
     it('respond with a 400 trap', function(done) {
     
     request(app)

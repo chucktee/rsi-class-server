@@ -21,6 +21,7 @@ exports.addCart = function(req, res) {
 		var handleError = function(err) {
 			// no error occurred, continue with the request
 			if(!err) return false;
+			console.log(err);
 			res.status(500).json({ result:'error', data:{ error:err } });
 			return true;
 	    };
@@ -39,14 +40,34 @@ exports.addCart = function(req, res) {
 
 				if(product_result.rowCount > 0) {
 
-					var queryText = 'INSERT INTO cart (id, date_created, id_product, id_customer, quantity) VALUES ($1, $2, $3, $4, $5) returning id;'
-					client.query(queryText, [uuid.v4(), dateutil.date(), req.body.id_product, req.body.id_customer, req.body.quantity], function(err, result) {
-						done();
+					var use_quantity = parseInt(req.body.quantity);
+					var save_query_text;
+					var bind_array;
+
+					var queryText = 'SELECT id, quantity FROM cart WHERE id_customer = $1 AND id_product = $2;'
+					client.query(queryText, [req.body.id_customer, req.body.id_product], function(err, quantity_result) {
 						// handle an error from the query
 						if(handleError(err)) return;
-						console.log(req.body.quantity + ' ' + product_result.rows[0].unit_price);
-						var totalForThisAddition = parseInt(req.body.quantity) * product_result.rows[0].unit_price;
-						res.status(200).json({result: 'success', data:{ id : result.rows[0].id, unit_price: product_result.rows[0].unit_price, total: totalForThisAddition }});	
+
+						if(quantity_result.rowCount > 0) {
+							use_quantity += parseInt(quantity_result.rows[0].quantity);
+							save_query_text = "UPDATE cart SET quantity = $1, date_updated = $2 WHERE id = $3 returning id;"
+							bind_array = [use_quantity, dateutil.date(), quantity_result.rows[0].id];
+							console.log("Found an item already with quantity of " + quantity_result.rows[0].quantity + " setting quantity to " + use_quantity);
+						} else {
+							save_query_text = 'INSERT INTO cart (id, date_created, date_updated, id_product, id_customer, quantity) VALUES ($1, $2, $3, $4, $5, $6) returning id;'
+							bind_array = [uuid.v4(), dateutil.date(), dateutil.date(), req.body.id_product, req.body.id_customer, use_quantity];
+							console.log("Did not find a matching item. Setting quantity to " + use_quantity);
+						}
+
+						client.query(save_query_text, bind_array, function(err, result) {
+							done();
+							// handle an error from the query
+							if(handleError(err)) return;
+							var totalForThisAddition = parseInt(req.body.quantity) * product_result.rows[0].unit_price;
+							res.status(200).json({result: 'success', data:{ id : result.rows[0].id, unit_price: product_result.rows[0].unit_price, total: totalForThisAddition }});	
+						});
+
 					});
 
 				} else {
