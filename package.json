@@ -27,7 +27,7 @@
     "pg": "^6.1.5",
     "pg-pool": "^1.6.0",
     "pg-query-stream": "^1.0.0",
-    "uuid": "^3.0.1"
+    "uuid": "^3.3.2"
   },
   "devDependencies": {
     "chai": "^3.5.0",
