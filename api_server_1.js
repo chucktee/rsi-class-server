@@ -8,15 +8,15 @@ const app = express();
 app.set("port", process.env.PORT || 3000);
 
 // Add BodyParser to read HTTP message body
-const bodyParser = require("body-parser")
+const bodyParser = require("body-parser");
 // parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 
 // Morgan for logging
-const morgan = require("morgan");
-app.use(morgan(":date :remote-addr :method :url :status :response-time ms - :res[content-length]"));
+//const morgan = require("morgan");
+//app.use(morgan(":date :remote-addr :method :url :status :response-time ms - :res[content-length]"));
 
 //-----------------------------------------
 // Startup the server
@@ -52,6 +52,6 @@ app.post("/api/make-mailer", play.makeHTMLMailingLabel);
 //-----------------------------------------
 // Finally If no routes match, send 404
 app.use(function(req,res) {
-	res.status(404).json({result: 'not found', data:{}});
+	res.status(404).json({"result": "not found", "data":{}});
 });
 
