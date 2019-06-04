@@ -65,14 +65,13 @@ const users = require("./routes/users");
 // App Version
 app.get("/api/version", play.version);
 // Add Two Version
-app.get("/api/add-two/:x/:y", play.addTwo);
+app.get("/api/add-two/:first_number/:second_number", play.addTwo);
 // Make an HTML mailing label
 app.post("/api/make-mailer", play.makeHTMLMailingLabel);
 //-----------------------------------------
 
 //-----------------------------------------
 // Users Functions
-// Add User Version
 app.post("/api/user", users.createUser);
 //-----------------------------------------
 
