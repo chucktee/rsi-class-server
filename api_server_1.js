@@ -57,8 +57,9 @@ module.exports = app;
 // API routes
 //
 
-const play = require("./routes/play");
-const users = require("./routes/users");
+const play 		= require("./routes/play");
+const users 	= require("./routes/users");
+const products 	= require("./routes/products");
 
 //-----------------------------------------
 // Play Functions
@@ -73,6 +74,11 @@ app.post("/api/make-mailer", play.makeHTMLMailingLabel);
 //-----------------------------------------
 // Users Functions
 app.post("/api/user", users.createUser);
+//-----------------------------------------
+
+//-----------------------------------------
+// Products Functions
+app.post("/api/products", products.readProducts);
 //-----------------------------------------
 
 //-----------------------------------------
